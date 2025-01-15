@@ -1,0 +1,217 @@
+
+body {
+  background-color: #343a40;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+  padding: 5px 30px; 
+  background: linear-gradient(135deg, #ffffffba, #000000); /* Gradiente */
+}
+
+#menu {
+  background-color:#2d3436;
+}
+.dropdown-menu {
+  background-color: #2d3436;
+  border: 1px solid #000000;
+}
+
+.dropdown-menu.show {
+  display: block !important; /* Mantiene visibile il dropdown */
+}
+
+.dropdown-item {
+  color: #adb5bd;
+}
+
+.dropdown-item:hover {
+  background-color: #343a40;
+  color: #ff6f00;
+}
+
+.dropdown-item:focus {
+  background-color: #343a40;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.navbar-brand:hover {
+  color: #ff6f00;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  color:#000000;
+}
+
+.nav-link:hover {
+  color: #ff6f00;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+#clickableCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: #ff6f00;
+}
+
+.custom-orange {
+  background-color: #ff6f00; /* Arancione */
+  color: white; /* Colore del testo */
+}
+
+
+#clickableUserCard:hover {
+  border-color: rgb(73, 133, 244);
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  background-color: #495057; 
+  color: white;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 10px 15px;
+}
+
+.auction-id {
+  color: #ff6f00;
+}
+
+.user-id {
+  color:rgb(73, 133, 244);
+}
+
+.bid-id {
+  color:rgb(221, 132, 199);
+}
+
+
+.table {
+  background-color: #495057;
+  color: white;
+}
+
+.table th, .table td {
+  border: 1px solid #6c757d;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.mb-3 {
+  margin-bottom: 1.5em;
+}
+
+.form-control {
+  background-color:#6c757d;
+  color: #f8f9fa;
+  border: 1px solid #495057;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1em;
+}
+
+.form-control:hover {
+  background-color: #495057;
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-control:focus {
+  background-color: #495057;
+  border-color: #007bff;
+  outline: none;
+  color: white; 
+}
+
+.form-label {
+  color: #f8f9fa;
+  font-size: 1em;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.btn-primary, .btn-secondary {
+  max-width: 200px;
+  font-size: 1rem; /* Dimensione del testo più piccola */
+  padding: 8px 16px; /* Riduce la larghezza e altezza */
+  border-radius: 4px; /* Angoli arrotondati */
+  width: auto; /* Rimuove la larghezza al 100% */
+  margin-right: 10px; /* Spaziatura tra i pulsanti */
+  transition: all 0.3s ease;
+}
+
+.btn-primary { /* Limita la larghezza massima del pulsante */
+  background-color: #0056b3; /* Colore di base */
+  border-color: #0056b3; /* Colore del bordo */
+}
+
+/* Pulsante "Annulla" */
+.btn-secondary {
+  background-color: #6c757d; /* Colore di base */
+  border-color: #6c757d; /* Colore del bordo */
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  opacity: 0.7; /* Riduce l'opacità al passaggio del mouse */
+}
+
+/* Hover e attivo per il pulsante di login */
+.btn-primary:hover {
+  background-color: #0069d9; /* Blu più chiaro per hover */
+  border-color: #0069d9;
+}
+#wonauctions {
+  background-color: #0069d9; /* Blu più chiaro per hover */
+  border-color: #0069d9;
+  color:white
+}
+.btn-secondary:hover {
+  background-color: #5a6268; /* Colore grigio più chiaro per hover */
+  border-color: #5a6268;
+}
+
+/* Aggiungi uno stato attivo per i pulsanti "Aste Create" e "Aste Vinte" */
+.btn-outline-primary.active {
+  background-color: #115dae;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .input-group {
+    width: 100%;
+    max-width: 100%; /* La barra occupa tutta la larghezza su dispositivi piccoli */
+  }
+  .d-flex button {
+    margin-bottom: 10px;
+  }
+}
+
+.links {
+  text-decoration: underline; 
+  color: #007bff;
+}
