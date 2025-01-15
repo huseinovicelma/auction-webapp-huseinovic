@@ -568,7 +568,7 @@ const app = createApp({
           this.userId = user.id;
           this.showPage('mainpage');
         } catch (error) {
-          console.error('Errore durante il check-login:', error.message);
+          console.log('Errore durante il check-login:', error.message);
           this.isLoggedIn = false;
           this.username = '';
           this.userId = 0;

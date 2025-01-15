@@ -103,7 +103,7 @@ router.post("/auctions", verifyUser, async (req, res) => {
                 .findOne({}, { sort: {id: -1} });
             let id = lastAuction?.id !== undefined ? lastAuction.id : -1;
             id++;
-            let id_user = req.userId;
+            let id_user = req.session.user.id;
             const newAuction = { 
                 id, 
                 id_user, 
@@ -135,7 +135,7 @@ router.get("/auctions/:id", async (req, res) => {
 router.put("/auctions/:id", verifyUser, async (req, res) => {
     try { 
         const id = parseInt(req.params.id);
-        const userId = req.userId; 
+        const userId = req.session.user.id; 
         const { title, description } = req.body; 
         const mongo = await db.connectToDatabase(); 
         const auction = await mongo.collection('auctions').findOne({id});
@@ -156,7 +156,7 @@ router.put("/auctions/:id", verifyUser, async (req, res) => {
 
 router.delete("/auctions/:id", verifyUser, async (req, res) => {
     let id = parseInt(req.params.id);
-    let id_user = req.userId;
+    let id_user = req.session.user.id;
     const mongo = await db.connectToDatabase();
     const auction = await mongo.collection("auctions").findOne({id});
     if(!auction) {
@@ -198,7 +198,7 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
             .findOne({}, { sort: {id: -1} });
         let id = lastBid?.id !== undefined ? lastBid.id : -1;
         id++;
-        let id_user = req.userId;
+        let id_user = req.session.user.id;
         let auction_id = parseInt(req.params.id);
         let timestamp = new Date();
         const newBid = {
