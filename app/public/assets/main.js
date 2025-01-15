@@ -276,7 +276,13 @@ const app = createApp({
 
         try {
           const wonresponse = await fetch(wonUrl);
-          this.wonAuctions = await wonresponse.json();
+          const wonAuctions = await wonresponse.json();
+          this.wonAuctions = [];
+          for (let auction of wonAuctions) {
+            if (auction.expired){
+              this.wonAuctions.push(auction);
+            }
+          }
 
         } catch (error) {
           console.error('Errore durante il caricamento delle aste:', error);
