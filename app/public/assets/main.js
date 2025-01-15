@@ -68,40 +68,48 @@ const app = createApp({
           this.loadUsers();
         }
       },
-      async checkLogin() {
-        const token = localStorage.getItem('jwtToken');
-        if (!token) {
-            console.log('Nessun token trovato, utente non loggato');
-            this.isLoggedIn = false;
-        }
-    
+      async handleLogin() {
         try {
-            const response = await fetch('http://localhost:3000/api/auctions/checklogin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Token non valido o scaduto');
-            }
-    
-            this.isLoggedIn = true;
-            this.user = localStorage.getItem('user');
-            this.username = this.user.username;
-            console.log = this.username;
-            this.userId = this.user.id;
+          const response = await fetch('http://localhost:3000/api/auth/signin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: this.loginData.username,
+              password: this.loginData.password,
+            }),
+            credentials: 'include', // Include il cookie di sessione
+          });
+      
+          if (!response.ok) {
+            const error = await response.json();
+            throw { msg: error.msg };
+          }
+      
+          const result = await response.json();
+          this.successMessage = result.msg;
+          this.isLoggedIn = true;
+          this.username = result.username;
+          this.userId = result.id;
+          this.user = result;
+      
+          setTimeout(() => {
             this.showPage('mainpage');
- 
+            this.loginData.username = '';
+            this.loginData.password = '';
+            this.successMessage = '';
+          }, 1000);
         } catch (error) {
-            console.error('Errore durante il check-login:', error.message);
-            localStorage.removeItem('jwtToken');
-            console.log('Token rimosso dal local storage');
-
+          this.errorMessage = error.msg;
+          setTimeout(() => {
+            this.loginData.username = '';
+            this.loginData.password = '';
+            this.errorMessage = '';
+          }, 2000);
         }
-    },
+      },
+      
       //gestione dropdown menu DA RIVEDERE  
       toggleDropdown(event) {
         const dropdownMenu = this.$refs.dropdownMenu;
@@ -136,7 +144,7 @@ const app = createApp({
     
       //fetch delle aste
       async getData() {
-        const url = "http://localhost:3000/api/auctions/auctions";
+        const url = "http://localhost:3000/api/auctions";
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -144,9 +152,6 @@ const app = createApp({
           }
           this.auctionsNotFiltered = await response.json();
           this.auctions = this.auctionsNotFiltered;
-          for (auction of this.auctions) {
-            auction.endDate = this.formattedDate(auction.endDate);
-          }
         } catch (error) {
           console.error(error.message);
         }
@@ -165,7 +170,7 @@ const app = createApp({
       },
       //carica dati per profilo utente
       async showProfile() {
-        const url = "http://localhost:3000/api/auctions/whoami";
+        const url = "http://localhost:3000/api/whoami";
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -198,7 +203,6 @@ const app = createApp({
             }
 
             const result = await response.json();
-            console.log(result);
             if (result.token) {
                 localStorage.setItem('jwtToken', result.token);
             }
@@ -268,21 +272,12 @@ const app = createApp({
       },
       //carica aste vinte da un utente
       async loadUserWonAuctions(userId) {
-        const wonUrl = `http://localhost:3000/api/auctions/auctions?assignedTo=${userId}`;
+        const wonUrl = `http://localhost:3000/api/auctions?assignedTo=${userId}`;
 
         try {
           const wonresponse = await fetch(wonUrl);
-          const wonAuctions = await wonresponse.json();
-          this.wonAuctions = [];
+          this.wonAuctions = await wonresponse.json();
 
-          const timestamp = new Date();
-          for (const wonAuction of wonAuctions){
-            const endDate = new Date(wonAuction.endDate);
-            wonAuction.endDate = this.formattedDate(wonAuction.endDate);
-            if (timestamp > endDate) {
-              this.wonAuctions.push(wonAuction);
-            }
-          }
         } catch (error) {
           console.error('Errore durante il caricamento delle aste:', error);
         }
@@ -290,21 +285,18 @@ const app = createApp({
       //carica aste create da un utente
       async loadUserCreatedAuctions(userId) {
         // Ottieni le aste create
-        const createdUrl = `http://localhost:3000/api/auctions/auctions?userId=${userId}`;
+        const createdUrl = `http://localhost:3000/api/auctions?userId=${userId}`;
 
         try {
           const createdresponse = await fetch(createdUrl);
           this.createdAuctions = await createdresponse.json();
-          for (const createdAuction of this.createdAuctions){
-            createdAuction.endDate = this.formattedDate(createdAuction.endDate);
-          }
         } catch (error) {
           console.error('Errore durante il caricamento delle aste:', error);
         }
       },
       //controlla se una certa asta appartiene all'utente
       async checkOwner() {
-        const url = "http://localhost:3000/api/auctions/whoami";
+        const url = "http://localhost:3000/api/whoami";
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -325,8 +317,7 @@ const app = createApp({
       async loadAuctionDetail(auction_id) {
         this.currentView = 'auctionDetail';
         this.showbids = 'allBids';
-        const url = `http://localhost:3000/api/auctions/auctions/${auction_id}`;
-        console.log(url);
+        const url = `http://localhost:3000/api/auctions/${auction_id}`;
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -334,19 +325,13 @@ const app = createApp({
           }
           this.auctionDetail = [];
           this.auctionDetail = await response.json();
-          const endDate = this.auctionDetail.endDate;
-          this.auctionDetail.endDate = this.formattedDate(endDate);
-          const result = await fetch(`http://localhost:3000/api/auctions/users/${this.auctionDetail.assignedTo}`);
+          const result = await fetch(`http://localhost:3000/api/users/${this.auctionDetail.assignedTo}`);
           user = await result.json();
-          console.log(user.username);
           this.auctionDetail.assignedTousername = user.username;
 
-          const secondresult = await fetch(`http://localhost:3000/api/auctions/users/${this.auctionDetail.id_user}`);
+          const secondresult = await fetch(`http://localhost:3000/api/users/${this.auctionDetail.id_user}`);
           user = await secondresult.json();
-          console.log(user.username);
           this.auctionDetail.createdusername = user.username;
-          console.log(this.auctionDetail.createdusername);
-          console.log(this.auctionDetail.assignedTousername);
           this.checkOwner();
           if (this.showbids === 'allBids') {
             this.loadAllBids(auction_id);
@@ -358,7 +343,7 @@ const app = createApp({
       },
       //carica tutte le offerte fatte per un'asta
       async loadAllBids() {
-        const url = `http://localhost:3000/api/auctions/auctions/${this.auctionDetail.id}/bids`;
+        const url = `http://localhost:3000/api/auctions/${this.auctionDetail.id}/bids`;
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -366,8 +351,7 @@ const app = createApp({
           }
           this.bids = await response.json();
           for (const bid of this.bids) {
-            bid.timestamp = this.formattedDate(bid.timestamp);
-            const result = await fetch(`http://localhost:3000/api/auctions/users/${bid.id_user}`);
+            const result = await fetch(`http://localhost:3000/api/users/${bid.id_user}`);
             user = await result.json();
             bid.username = user.username;
           }
@@ -379,7 +363,7 @@ const app = createApp({
       //gestisce nuova offerta
       async insertNewBid() {
         try {
-          const response = await fetch(`http://localhost:3000/api/auctions/auctions/${this.auctionDetail.id}/bids`, {
+          const response = await fetch(`http://localhost:3000/api/auctions/${this.auctionDetail.id}/bids`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json', // Specifica il tipo di contenuto
@@ -415,7 +399,7 @@ const app = createApp({
       async editAuction(auction_id){
         const id = auction_id;
         try {
-          const response = await fetch(`http://localhost:3000/api/auctions/auctions/${id}`, {
+          const response = await fetch(`http://localhost:3000/api/auctions/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -457,7 +441,7 @@ const app = createApp({
       async deleteAuction(auction_id) {
         const id = auction_id;
         try {
-          const response = await fetch(`http://localhost:3000/api/auctions/auctions/${id}`, {
+          const response = await fetch(`http://localhost:3000/api/auctions/${id}`, {
             method: 'DELETE',
           });
 
@@ -483,7 +467,7 @@ const app = createApp({
       //gestisce nuova asta
       async createNewauction() {
         try {
-          const response = await fetch('http://localhost:3000/api/auctions/auctions', {
+          const response = await fetch('http://localhost:3000/api/auctions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json', // Specifica il tipo di contenuto
@@ -527,7 +511,7 @@ const app = createApp({
       },
       //carica tutti gli utente
       async loadUsers() {
-        const url = "http://localhost:3000/api/auctions/users";
+        const url = "http://localhost:3000/api/users";
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -554,7 +538,7 @@ const app = createApp({
       },
       //carica singolo user
       async loadUser(userid) {
-        const url = `http://localhost:3000/api/auctions/users/${userid}`;
+        const url = `http://localhost:3000/api/users/${userid}`;
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -566,40 +550,61 @@ const app = createApp({
           console.error(error.message);
         }
       },
+      async checkLogin() {
+        try {
+          const response = await fetch('http://localhost:3000/api/checklogin', {
+            method: 'GET',
+            credentials: 'include', // Include il cookie di sessione
+          });
+      
+          if (!response.ok) {
+            throw new Error('Sessione non valida o scaduta');
+          }
+      
+          const user = await response.json();
+          this.isLoggedIn = true;
+          this.user = user;
+          this.username = user.username;
+          this.userId = user.id;
+          this.showPage('mainpage');
+        } catch (error) {
+          console.error('Errore durante il check-login:', error.message);
+          this.isLoggedIn = false;
+          this.username = '';
+          this.userId = 0;
+          this.user = [];
+          this.showPage('mainpage');
+        }
+      },
+      
       //gestisce logout(fa finta)
-      logout() {
-  
-            this.isLoggedIn = false;
-            this.username = '';
-            this.userId = 0;
-            this.user = [];
-            this.successMessage = '';
-            this.errorMessage = '';
-    
-            // Rimuovi i dati dal localStorage
-            localStorage.removeItem('jwtToken');
-            localStorage.removeItem('user');
-            // Puoi anche navigare verso la pagina di login, se necessario
-            this.showPage('mainpage');
-
-    },
+      async logout() {
+        try {
+          const response = await fetch('http://localhost:3000/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include', // Include il cookie di sessione
+          });
+      
+          if (!response.ok) {
+            throw new Error('Errore durante il logout');
+          }
+      
+          this.isLoggedIn = false;
+          this.username = '';
+          this.userId = 0;
+          this.user = [];
+          this.successMessage = '';
+          this.errorMessage = '';
+      
+          // Torna alla pagina principale
+        } catch (error) {
+          console.error('Errore durante il logout:', error.message);
+        }
+      },
+      
     
     
       //modifica data a partire da ISOdate salvata su db
-      formattedDate(date) {
-        const endDate = new Date(date);
-
-        // Ottieni i singoli componenti della data
-        const day = String(endDate.getDate()).padStart(2, '0');
-        const month = String(endDate.getMonth() + 1).padStart(2, '0');
-        const year = endDate.getFullYear();
-        const hours = String(endDate.getHours()).padStart(2, '0');
-        const minutes = String(endDate.getMinutes()).padStart(2, '0');
-        const seconds = String(endDate.getSeconds()).padStart(2, '0');
-
-        const finaldate = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
-        return finaldate;
-      },
 }
 
 });

@@ -18,5 +18,6 @@ services:
     image: mongo:latest  # Usa l'immagine più recente di MongoDB
     volumes:
       - ./data:/data/db  # Mappa i dati di MongoDB per la persistenza
+      - ./app/server/db/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"  # Porta standard di MongoDB
