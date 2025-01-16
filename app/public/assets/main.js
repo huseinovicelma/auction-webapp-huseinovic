@@ -1,6 +1,5 @@
 const { createApp } = Vue
 
-
 const app = createApp({
     data: function() {
       return {
@@ -55,7 +54,6 @@ const app = createApp({
       this.checkLogin();
     },
     methods: {
-      //gestione modifica pagina corrente
       showPage(view) {
         this.currentView = view; 
         if (this.currentView === 'mainpage'){
@@ -79,14 +77,13 @@ const app = createApp({
               username: this.loginData.username,
               password: this.loginData.password,
             }),
-            credentials: 'include', // Include il cookie di sessione
+            credentials: 'include',
           });
       
           if (!response.ok) {
             const error = await response.json();
             throw { msg: error.msg };
           }
-      
           const result = await response.json();
           this.successMessage = result.msg;
           this.isLoggedIn = true;
@@ -108,20 +105,15 @@ const app = createApp({
             this.errorMessage = '';
           }, 2000);
         }
-      },
-      
-      //gestione dropdown menu DA RIVEDERE  
+      }, 
       toggleDropdown(event) {
         const dropdownMenu = this.$refs.dropdownMenu;
     
-        // Se il menu è aperto, chiudilo
         if (dropdownMenu.classList.contains('show')) {
           dropdownMenu.classList.remove('show');
           document.removeEventListener('click', this.closeDropdownOnClickOutside);
         } else {
-          // Altrimenti, aprilo
           dropdownMenu.classList.add('show');
-          // Aggiungi un listener per chiudere il menu cliccando fuori
           document.addEventListener('click', this.closeDropdownOnClickOutside);
         }
       },
@@ -129,20 +121,15 @@ const app = createApp({
         const dropdownMenu = this.$refs.dropdownMenu;
         const button = this.$refs.dropdownButton;
     
-        // Verifica se i riferimenti esistono
         if (!dropdownMenu || !button) {
-            document.removeEventListener('click', this.closeDropdownOnClickOutside);
-            return;
+          document.removeEventListener('click', this.closeDropdownOnClickOutside);
+          return;
         }
-    
-        // Verifica se il clic è al di fuori del menu e del pulsante
         if (!dropdownMenu.contains(event.target) && !button.contains(event.target)) {
-            dropdownMenu.classList.remove('show');
-            document.removeEventListener('click', this.closeDropdownOnClickOutside);
+          dropdownMenu.classList.remove('show');
+          document.removeEventListener('click', this.closeDropdownOnClickOutside);
         }
-    },
-    
-      //fetch delle aste
+      },
       async getData() {
         const url = "http://localhost:3000/api/auctions";
         try {
@@ -156,7 +143,6 @@ const app = createApp({
           console.error(error.message);
         }
       },
-      //filtro aste con barra di ricerca
       async filterAsta() {
         this.auctions = this.auctionsNotFiltered;
         this.auctions = this.auctions.filter(auction => {
@@ -168,7 +154,6 @@ const app = createApp({
         });
         this.searchQuery = '';
       },
-      //carica dati per profilo utente
       async showProfile() {
         const url = "http://localhost:3000/api/whoami";
         try {
@@ -183,43 +168,43 @@ const app = createApp({
           console.error(error.message);
         }
       },
-    async handleLogin() {
+      async handleLogin() {
         try {
-            const response = await fetch('http://localhost:3000/api/auth/signin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: this.loginData.username,
-                    password: this.loginData.password,
-                }),
-                credentials: 'include',
-            });
+          const response = await fetch('http://localhost:3000/api/auth/signin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: this.loginData.username,
+              password: this.loginData.password,
+            }),
+            credentials: 'include',
+          });
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw { msg: error.msg };
-            }
+          if (!response.ok) {
+            const error = await response.json();
+            throw { msg: error.msg };
+          }
 
-            const result = await response.json();
-            if (result.token) {
-                localStorage.setItem('jwtToken', result.token);
-            }
-            this.successMessage = result.msg;
-            this.isLoggedIn = true;
-            this.username = result.username;
-            this.userId = result.id;
-            this.user = result;
-            localStorage.setItem('user', this.user);
+          const result = await response.json();
+          if (result.token) {
+              localStorage.setItem('jwtToken', result.token);
+          }
+          this.successMessage = result.msg;
+          this.isLoggedIn = true;
+          this.username = result.username;
+          this.userId = result.id;
+          this.user = result;
+          localStorage.setItem('user', this.user);
 
 
-            setTimeout(() => {
-                this.showPage('mainpage');
-                this.loginData.username = '';
-                this.loginData.password = '';
-                this.successMessage = '';
-            }, 1000);
+          setTimeout(() => {
+              this.showPage('mainpage');
+              this.loginData.username = '';
+              this.loginData.password = '';
+              this.successMessage = '';
+          }, 1000);
 
         } catch (error) {
             this.errorMessage = error.msg;
@@ -229,11 +214,7 @@ const app = createApp({
                 this.errorMessage = '';
             }, 2000);
           }
-        },
-
-
-      
-      //gestione registrazione
+      },
       async handleRegistration() {
         try {
           const response = await fetch('http://localhost:3000/api/auth/signup', {
@@ -270,10 +251,8 @@ const app = createApp({
         this.registrationData.name = ''; 
         this.registrationData.surname = ''
       },
-      //carica aste vinte da un utente
       async loadUserWonAuctions(userId) {
         const wonUrl = `http://localhost:3000/api/auctions?assignedTo=${userId}`;
-
         try {
           const wonresponse = await fetch(wonUrl);
           const wonAuctions = await wonresponse.json();
@@ -283,16 +262,12 @@ const app = createApp({
               this.wonAuctions.push(auction);
             }
           }
-
         } catch (error) {
           console.error('Errore durante il caricamento delle aste:', error);
         }
       },
-      //carica aste create da un utente
       async loadUserCreatedAuctions(userId) {
-        // Ottieni le aste create
         const createdUrl = `http://localhost:3000/api/auctions?userId=${userId}`;
-
         try {
           const createdresponse = await fetch(createdUrl);
           this.createdAuctions = await createdresponse.json();
@@ -300,7 +275,6 @@ const app = createApp({
           console.error('Errore durante il caricamento delle aste:', error);
         }
       },
-      //controlla se una certa asta appartiene all'utente
       async checkOwner() {
         const url = "http://localhost:3000/api/whoami";
         try {
@@ -319,13 +293,12 @@ const app = createApp({
           this.isOwner = false;
         }
       },
-      //carica dettaglio asta
       async loadAuctionDetail(auction_id) {
         this.currentView = 'auctionDetail';
         this.showbids = 'allBids';
         const url = `http://localhost:3000/api/auctions/${auction_id}`;
         try {
-          const response = await fetch(url);
+          const response = await fetch(url, { cache: 'no-store' });
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
@@ -347,7 +320,6 @@ const app = createApp({
           console.error(error.message);
         }
       },
-      //carica tutte le offerte fatte per un'asta
       async loadAllBids() {
         const url = `http://localhost:3000/api/auctions/${this.auctionDetail.id}/bids`;
         try {
@@ -366,24 +338,21 @@ const app = createApp({
           console.error(error.message);
         }
       },
-      //gestisce nuova offerta
       async insertNewBid() {
         try {
           const response = await fetch(`http://localhost:3000/api/auctions/${this.auctionDetail.id}/bids`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Specifica il tipo di contenuto
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              bidAmount: this.newBid.bidAmount// Sostituisci con i tuoi dati
+              bidAmount: this.newBid.bidAmount
             })
           });
-
           if (!response.ok) {
             const error = await response.json();
             throw { msg: error.msg };
           }
-
           const result = await response.json();
           this.successMessage = result.msg;
           setTimeout(() => {
@@ -401,7 +370,6 @@ const app = createApp({
           }, 2000);
         }
       },
-      //gestisce modica asta
       async editAuction(auction_id){
         const id = auction_id;
         try {
@@ -437,13 +405,11 @@ const app = createApp({
           }, 2000);
         }
       },
-      //conferma elimina asta
       async confirmDeleteAuction(auctionId) {
         if (confirm("Sicuro di voler proseguire?")) {
           await this.deleteAuction(auctionId); 
         }
       },
-      //elimina asta
       async deleteAuction(auction_id) {
         const id = auction_id;
         try {
@@ -470,16 +436,15 @@ const app = createApp({
           }, 2000);
         }
       },
-      //gestisce nuova asta
       async createNewauction() {
         try {
           const response = await fetch('http://localhost:3000/api/auctions', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Specifica il tipo di contenuto
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              title: this.newAuction.title, // Sostituisci con i tuoi dati
+              title: this.newAuction.title, 
               description: this.newAuction.description,
               endDate: this.newAuction.endDate,
               startingPrice: this.newAuction.startingPrice,
@@ -515,7 +480,6 @@ const app = createApp({
           }, 2000);
         }
       },
-      //carica tutti gli utente
       async loadUsers() {
         const url = "http://localhost:3000/api/users";
         try {
@@ -529,7 +493,6 @@ const app = createApp({
           console.error(error.message);
         }
       },
-      //filtra utenti con ricerca
       async filterUsers() {
         this.users = this.usersNotFiltered;
         this.users = this.users.filter(user => {
@@ -542,7 +505,6 @@ const app = createApp({
         });
         this.searchUser = '';
       },
-      //carica singolo user
       async loadUser(userid) {
         const url = `http://localhost:3000/api/users/${userid}`;
         try {
@@ -560,7 +522,7 @@ const app = createApp({
         try {
           const response = await fetch('http://localhost:3000/api/checklogin', {
             method: 'GET',
-            credentials: 'include', // Include il cookie di sessione
+            credentials: 'include', 
           });
       
           if (!response.ok) {
@@ -582,13 +544,11 @@ const app = createApp({
           this.showPage('mainpage');
         }
       },
-      
-      //gestisce logout(fa finta)
       async logout() {
         try {
           const response = await fetch('http://localhost:3000/api/auth/logout', {
             method: 'POST',
-            credentials: 'include', // Include il cookie di sessione
+            credentials: 'include', 
           });
       
           if (!response.ok) {
@@ -601,25 +561,11 @@ const app = createApp({
           this.user = [];
           this.successMessage = '';
           this.errorMessage = '';
-      
-          // Torna alla pagina principale
         } catch (error) {
           console.error('Errore durante il logout:', error.message);
         }
       },
-      
-    
-    
-      //modifica data a partire da ISOdate salvata su db
-}
-
+    }
 });
 
 app.mount('#app');
-
-
-
-
-// fare script di inizializzazione docker 
-// modificare dockerfile ecc in modo che sia pronto per essere mandato 
-// test test test 

@@ -3,7 +3,7 @@ import { connectToDatabase } from "../db/db.js";
 export async function updateExpiredAuctions() {
     try {
         const mongo = await connectToDatabase();
-        const timestamp = new Date(); // Data e ora correnti
+        const timestamp = new Date(); 
 
         const auctions = await mongo.collection("auctions").find().toArray();
 
@@ -34,8 +34,6 @@ export function checkDate(endDate) {
 
 export function formattedDate(date) {
     const endDate = new Date(date);
-
-    // Ottieni i singoli componenti della data
     const day = String(endDate.getDate()).padStart(2, '0');
     const month = String(endDate.getMonth() + 1).padStart(2, '0');
     const year = endDate.getFullYear();

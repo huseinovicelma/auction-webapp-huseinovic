@@ -14,10 +14,16 @@ app.use(session({
     saveUninitialized: false,  
     cookie: {
         httpOnly: true,
-        secure: false, // Metti a true in produzione con HTTPS
-        maxAge: 1000 * 60 * 60, // Sessione valida per 1 ora
+        secure: false, 
+        maxAge: 1000 * 60 * 60, 
       },  
 }));
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    next();
+});
 app.use("/api", router);
 app.use("/api/auth", auth);
 

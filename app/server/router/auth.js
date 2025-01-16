@@ -4,23 +4,21 @@ const express = require("express");
 const db = require("../db/db.js");
 const router = express.Router();
 
-// Middleware per l'hashing della password
 const hashPassword = async (req, res, next) => {
     const { password } = req.body;
     if (!password) {
         return res.status(400).json({ msg: 'Password is required' });
     }
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);  // Hash della password
-        req.body.password = hashedPassword;  // Sostituire la password con l'hash
-        next();  // Procedi con il prossimo middleware
+        const hashedPassword = await bcrypt.hash(password, 10);  
+        req.body.password = hashedPassword;  
+        next(); 
     } catch (error) {
         console.error('Error hashing password:', error.message);
         res.status(500).json({ msg: 'Internal server error' });
     }
 };
 
-// Rotta per il signup (registrazione dell'utente)
 router.post("/signup", hashPassword, async (req, res) => {
     const { username, password, name, surname } = req.body;
     try {
@@ -53,13 +51,12 @@ router.post("/signin", async (req, res) => {
             if (!isPasswordValid) {
                 return res.status(401).json({ msg: "Username o password errati" });
             }    
-            const data = { id: user.id };
-
             req.session.user = {
                 id: user.id,
                 username: user.username,
             };
-            res.cookie("connect.sid", req.sessionID, { httpOnly: true, secure: true });
+            req.session.createdAt = Date.now();
+            res.cookie("connect.sid", req.sessionID, { httpOnly: true});
             res.json({ msg: "Autenticazione avvenuta con successo",
                 username: user.username}
             );
@@ -77,7 +74,7 @@ router.post("/logout", (req, res) => {
             console.error("Error during logout:", err.message);
             return res.status(500).json({ msg: "Internal error" });
         }
-        res.clearCookie("connect.sid"); // Rimuove il cookie di sessione
+        res.clearCookie("connect.sid"); 
         res.json({ msg: "Logout avvenuto con successo" });
     });
 });

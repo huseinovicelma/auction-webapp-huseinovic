@@ -5,35 +5,50 @@ const db = require("../db/db.js");
 const { updateExpiredAuctions, checkDate, formattedDate } = require('../utils/utils.js');
 
 const verifyUser = (req, res, next) => {
-    if (req.session && req.session.user) {
-        return next(); // Utente autenticato, procedi
+    try {
+      if (!req.session || !req.session.user) {
+        return res.status(401).json({ msg: "Non sei autenticato." });
+      }
+      const now = Date.now();
+      const sessionCreatedAt = req.session.createdAt;
+      const sessionTimeout = req.session.cookie.maxAge;
+  
+      if (now - sessionCreatedAt > sessionTimeout) {
+        req.session.destroy(); 
+        return res.status(401).json({ msg: "Sessione scaduta. Effettua nuovamente il login." });
+      }
+  
+      const sessionCookie = req.cookies["connect.sid"];
+      if (!sessionCookie) {
+        return res.status(401).json({ msg: "Cookie di sessione mancante o non valido." });
+      }
+      return next();
+    } catch (error) {
+      console.error("Errore durante la verifica dell'utente:", error);
+      res.status(500).json({ msg: "Errore interno del server." });
     }
-    res.status(401).json({ msg: "Non sei autenticato" });
 };
-
+  
 router.get("/users", async (req, res) => {
     try {
-        const { username, name, surname, id } = req.query; // Estrai i parametri di query
+        const { username, name, surname, id } = req.query; 
         const mongo = await db.connectToDatabase();
 
-        // Crea un oggetto query vuoto per iniziare
         let query = {};
 
-        // Aggiungi i filtri in base ai parametri di query, se presenti
         if (username) {
-            query.username = username; // Filtra per username
+            query.username = username; 
         }
         if (name) {
-            query.name = name; // Filtra per nome
+            query.name = name; 
         }
         if (surname) {
-            query.surname = surname; // Filtra per cognome
+            query.surname = surname; 
         }
         if (id) {
-            query.id = parseInt(id); // Filtra per cognome
+            query.id = parseInt(id); 
         }
 
-        // Esegui la query con il filtro e proietta il campo password per escluderlo
         const users = await mongo
             .collection("users")
             .find(query, { projection: { password: 0 } })
@@ -46,40 +61,59 @@ router.get("/users", async (req, res) => {
     }
 });
 
-
 router.get("/whoami", verifyUser, async (req, res) => {
-    const id = req.session.user.id;
-    const mongo = await db.connectToDatabase();
-    const result = await mongo.collection("users").findOne({id}, { projection: { password: 0 } });
-    res.json(result);
+    try {
+      const id = req.session.user.id;
+      const mongo = await db.connectToDatabase();
+      const result = await mongo.collection("users").findOne({ id }, { projection: { password: 0 } });
+  
+      if (!result) {
+        return res.status(404).json({ message: "Utente non trovato." });
+      }
+  
+      res.json(result);
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
 });
+  
 
 router.get("/users/:id", async (req, res) => {
-    let id = parseInt(req.params.id);
-    const mongo = await db.connectToDatabase();
-    const result = await mongo.collection("users").findOne({id}, { projection: { password: 0 } });
-    res.json(result);
-});
+    try {
+        let id = parseInt(req.params.id);
+        const mongo = await db.connectToDatabase();
+        const result = await mongo.collection("users").findOne({ id }, { projection: { password: 0 } });
 
+        if (!result) {
+        return res.status(404).json({ message: "Utente non trovato." });
+        }
+
+        res.json(result);
+    } catch (error) {
+        console.error("Errore nella richiesta:", error);
+        res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
+});
+  
 router.get("/auctions", async (req, res) => {
     try {
-        const { userId, category, assignedTo} = req.query;  // Estrai i parametri di query dalla richiesta
+        const { userId, category, assignedTo} = req.query;  
         await updateExpiredAuctions();
         const mongo = await db.connectToDatabase();
-        let query = {};  // Crea un oggetto query vuoto per iniziare
+        let query = {};  
 
-        // Aggiungi il filtro in base ai parametri di query, se presenti
         if (userId) {
-            query.id_user = parseInt(userId);  // Filtra per id_user
+            query.id_user = parseInt(userId);  
         }
         if (category) {
-            query.category = category;  // Filtra per categoria
+            query.category = category;  
         }
         if (assignedTo) {
-            query.assignedTo = parseInt(assignedTo);  // Filtra per titolo (case-insensitive)
+            query.assignedTo = parseInt(assignedTo);  
         }
 
-        const auctions = await mongo.collection("auctions").find(query).toArray();  // Usa il filtro nella query
+        const auctions = await mongo.collection("auctions").find(query).toArray();  
         for (let auction of auctions) {
             auction.endDate = formattedDate(auction.endDate);
         };
@@ -124,14 +158,25 @@ router.post("/auctions", verifyUser, async (req, res) => {
 });
 
 router.get("/auctions/:id", async (req, res) => {
-    let id = parseInt(req.params.id);
-    await updateExpiredAuctions();
-    const mongo = await db.connectToDatabase();
-    const auction = await mongo.collection("auctions").findOne({id});
-    auction.endDate = formattedDate(auction.endDate);
-    res.json(auction);
+    try {
+      let id = parseInt(req.params.id);
+      await updateExpiredAuctions();
+  
+      const mongo = await db.connectToDatabase();
+      const auction = await mongo.collection("auctions").findOne({ id });
+  
+      if (!auction) {
+        return res.status(404).json({ message: "Asta non trovata." });
+      }
+  
+      auction.endDate = formattedDate(auction.endDate);
+      res.json(auction);
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
 });
-
+  
 router.put("/auctions/:id", verifyUser, async (req, res) => {
     try { 
         const id = parseInt(req.params.id);
@@ -180,15 +225,26 @@ router.delete("/auctions/:id", verifyUser, async (req, res) => {
 });
 
 router.get("/auctions/:id/bids", async (req, res) => {
-    let auction_id = parseInt(req.params.id);
-    const mongo = await db.connectToDatabase();
-    const bids = await mongo.collection("bids").find({auction_id}).toArray();
-    for (let bid of bids) {
+    try {
+      let auction_id = parseInt(req.params.id);
+  
+      const mongo = await db.connectToDatabase();
+      const bids = await mongo.collection("bids").find({ auction_id }).toArray();
+  
+      if (bids.length === 0) {
+        return res.status(404).json({ message: "Nessuna offerta trovata per questa asta." });
+      }
+      for (let bid of bids) {
         bid.timestamp = formattedDate(bid.timestamp);
-    };
-    res.json(bids);
-});
-
+      }
+  
+      res.json(bids);
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
+  });
+  
 router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
     try {
         const { bidAmount } = req.body;
@@ -202,7 +258,7 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
         let auction_id = parseInt(req.params.id);
         let timestamp = new Date();
         const newBid = {
-            id,      // ID unico dell'offerta
+            id,     
             auction_id,
             id_user,
             bidAmount,
@@ -210,7 +266,6 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
           };
         
         await updateExpiredAuctions();
-        
         const auction = await mongo
               .collection("auctions")
               .findOne({ id: auction_id });
@@ -230,25 +285,48 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
         }
     } catch (err) { 
         console.log(err);
-        res.status(500).json({ msg: 'Errore durante l\'inserimento dell\'offerta' }); }
+        res.status(500).json({ msg: 'Errore durante l\'inserimento dell\'offerta' }); 
+    }
 });
 
 router.get("/auctions/:id/bids", async (req, res) => {
-    let auction_id = parseInt(req.params.id);
-    const mongo = await db.connectToDatabase();
-    const bids = await mongo.collection("bids").find({auction_id}).toArray();
-    for (let bid of bids) {
+    try {
+      let auction_id = parseInt(req.params.id);
+  
+      const mongo = await db.connectToDatabase();
+      const bids = await mongo.collection("bids").find({ auction_id }).toArray();
+  
+      if (bids.length === 0) {
+        return res.status(404).json({ message: "Nessuna offerta trovata per questa asta." });
+      }
+  
+      for (let bid of bids) {
         bid.timestamp = formattedDate(bid.timestamp);
-    };
-    res.json(bids);
+      }
+      res.json(bids);
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
 });
-
+  
 router.get("/bids/:id", async (req, res) => {
-    const mongo = await db.connectToDatabase();
-    const bid = await mongo.collection("bids").findOne({id});
-    bid.timestamp = formattedDate(bid.timestamp);
-    res.json(bid);
-});
+    try {
+      const bid_id = parseInt(req.params.id);
+      const mongo = await db.connectToDatabase();
+      const bid = await mongo.collection("bids").findOne({ id: bid_id });
+  
+      if (!bid) {
+        return res.status(404).json({ message: "Offerta non trovata." });
+      }
+  
+      bid.timestamp = formattedDate(bid.timestamp);
+      res.json(bid);
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      res.status(500).json({ message: "Si è verificato un errore interno." });
+    }
+});  
 
 router.get('/checklogin', verifyUser, (req, res) => {
     res.status(200).json(req.session.user);
