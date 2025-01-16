@@ -43,3 +43,8 @@ Make sure you have Docker installed on your machine.
     ```
     http://localhost:3000
     ```
+
+## Note on Database and Users
+
+- The MongoDB database is pre-populated with a set of initial users and auctions during the container build process.
+- The passwords of the users are **hashed** before being stored in the database for security: for all initial users the password is set to `'password'` (for testing purposes).
