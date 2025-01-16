@@ -20,13 +20,12 @@ A web app for auction management.
   - Express: Framework for handling API routes.
   - MongoDB: Database to store users, auctions, and bids.
 
-## Installation
 ### Prerequisites
-Make sure you have Docker and Docker Compose installed on your machine.
+Make sure you have Docker installed on your machine.
 
 - [Install Docker](https://docs.docker.com/get-docker/)
 
-### Frontend Installation
+### Installation
 
 1. Clone the repository:
     ```
