@@ -18,15 +18,10 @@ app.use(session({
         maxAge: 1000 * 60 * 60, 
       },  
 }));
-app.use((req, res, next) => {
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-    next();
-});
 app.use("/api", router);
 app.use("/api/auth", auth);
 
 app.listen(3000, () => {
     console.log("Web server started");
 })
+

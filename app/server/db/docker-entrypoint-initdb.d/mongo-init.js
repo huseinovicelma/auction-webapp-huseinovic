@@ -187,8 +187,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Breaking Bad',
       endDate: ISODate('2025-01-24T15:19:00.000Z'),
       startingPrice: 20,
-      assignedTo: 18,
-      currentPrice: 25,
+      assignedTo: 2,
+      currentPrice: 20,
       expired: false
     },
     {
@@ -211,8 +211,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Digitalizzazione dei Paperi, valutazione per veri amanti della carta e inchiostro',
       endDate: ISODate('2025-01-22T14:00:00.000Z'),
       startingPrice: 10,
-      assignedTo: 16,
-      currentPrice: 30,
+      assignedTo: 19,
+      currentPrice: 12,
       expired: false
     },
     {
@@ -222,9 +222,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 28',
       description: 'Esame di Chimica degli Elementi Fantastici, per chi vuole essere il prossimo alchimista',
       endDate: ISODate('2025-01-25T16:30:00.000Z'),
-      startingPrice: 25,
-      assignedTo: 16,
-      currentPrice: 35,
+      startingPrice: 20,
+      assignedTo: 19,
+      currentPrice: 22,
       expired: false
     },
     {
@@ -235,8 +235,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Geometria non Euclidea, ideale per chi ama pensare fuori dagli schemi',
       endDate: ISODate('2025-01-23T17:00:00.000Z'),
       startingPrice: 30,
-      assignedTo: 16,
-      currentPrice: 40,
+      assignedTo: 5,
+      currentPrice: 30,
       expired: false
     },
     {
@@ -246,9 +246,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 24',
       description: 'Esame di Letteratura Antica, per chi ama gli scritti di Virgilio e Omero',
       endDate: ISODate('2025-01-18T12:00:00.000Z'),
-      startingPrice: 15,
-      assignedTo: 17,
-      currentPrice: 17,
+      startingPrice: 12,
+      assignedTo: 16,
+      currentPrice: 13,
       expired: false
     },
     {
@@ -258,9 +258,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 30',
       description: 'Esame di Geologia Interplanetaria, per chi sogna di esplorare Marte',
       endDate: ISODate('2025-01-26T18:15:00.000Z'),
-      startingPrice: 40,
-      assignedTo: 20,
-      currentPrice: 45,
+      startingPrice: 23,
+      assignedTo: 18,
+      currentPrice: 23,
       expired: false
     },
     {
@@ -270,9 +270,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 28L',
       description: 'Esame di Diagnostica Medica per Esperti in Emergenze, per chi vuole essere un genio della medicina',
       endDate: ISODate('2025-01-28T19:00:00.000Z'),
-      startingPrice: 50,
+      startingPrice: 0,
       assignedTo: 16,
-      currentPrice: 55,
+      currentPrice: 2,
       expired: false
     },
     {
@@ -282,9 +282,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 30',
       description: 'Esame di Progettazione Architettonica Avanzata, per chi ha sogni di costruire la casa del futuro',
       endDate: ISODate('2025-01-30T20:00:00.000Z'),
-      startingPrice: 60,
-      assignedTo: 18,
-      currentPrice: 63,
+      startingPrice: 22,
+      assignedTo: 17,
+      currentPrice: 22,
       expired: false
     },
     {
@@ -295,8 +295,8 @@ db.getCollection('auctions').insertMany(
       description: "Esame di Teoria della Sostanza Liquida, per chi ama l'acqua e tutti i suoi misteri",
       endDate: ISODate('2025-02-02T13:30:00.000Z'),
       startingPrice: 12,
-      assignedTo: 19,
-      currentPrice: 13,
+      assignedTo: 1,
+      currentPrice: 12,
       expired: false
     },
     {
@@ -306,9 +306,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 29L',
       description: 'Esame di Alchimie e Reazioni Strane, per chi non ha paura di mescolare ingredienti misteriosi',
       endDate: ISODate('2025-02-05T14:45:00.000Z'),
-      startingPrice: 35,
-      assignedTo: 20,
-      currentPrice: 36,
+      startingPrice: 30,
+      assignedTo: 16,
+      currentPrice: 30,
       expired: false
     },
     {
@@ -318,9 +318,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 30',
       description: 'Esame di Teoria del Paradosso, per chi ama le sfide logiche e gli enigmi matematici',
       endDate: ISODate('2025-02-03T15:20:00.000Z'),
-      startingPrice: 20,
-      assignedTo: 17,
-      currentPrice: 23,
+      startingPrice: 12,
+      assignedTo: 20,
+      currentPrice: 12,
       expired: false
     },
     {
@@ -330,9 +330,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 27',
       description: 'Esame di Divinità e Miti Strani, per chi è pronto a incontrare gli dei della letteratura',
       endDate: ISODate('2025-02-06T17:00:00.000Z'),
-      startingPrice: 18,
-      assignedTo: 16,
-      currentPrice: 19,
+      startingPrice: 14,
+      assignedTo: 18,
+      currentPrice: 15,
       expired: false
     },
     {
@@ -342,9 +342,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 24',
       description: 'Esame di Geomorfologia Extraordinaria, per chi è affascinato dalla geologia dei mondi sconosciuti',
       endDate: ISODate('2025-02-08T18:30:00.000Z'),
-      startingPrice: 22,
-      assignedTo: 19,
-      currentPrice: 24,
+      startingPrice: 42,
+      assignedTo: 16,
+      currentPrice: 52,
       expired: false
     },
     {
@@ -355,8 +355,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Trattamenti Medici Inusuali, per chi ha sempre desiderato lavorare in un ospedale di fantascienza',
       endDate: ISODate('2025-02-10T19:00:00.000Z'),
       startingPrice: 45,
-      assignedTo: 18,
-      currentPrice: 46,
+      assignedTo: 6,
+      currentPrice: 45,
       expired: false
     },
     {
@@ -366,9 +366,9 @@ db.getCollection('auctions').insertMany(
       title: 'Voto: 28',
       description: 'Esame di Tecniche per la Progettazione di Case Sospese, per chi è interessato alla domotica avanzata',
       endDate: ISODate('2025-02-12T20:10:00.000Z'),
-      startingPrice: 50,
-      assignedTo: 20,
-      currentPrice: 53,
+      startingPrice: 30,
+      assignedTo: 18,
+      currentPrice: 30,
       expired: false
     },
     {
@@ -379,8 +379,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Progettazione di Stadi Sostenibili, per chi vuole costruire il campo da calcio del futuro',
       endDate: ISODate('2025-02-15T21:00:00.000Z'),
       startingPrice: 45,
-      assignedTo: 19,
-      currentPrice: 50,
+      assignedTo: 17,
+      currentPrice: 30,
       expired: false
     },
     {
@@ -391,8 +391,8 @@ db.getCollection('auctions').insertMany(
       description: 'Esame di Teoria della Crescita Sostenibile, per chi vuole un mondo migliore',
       endDate: ISODate('2025-02-20T22:00:00.000Z'),
       startingPrice: 48,
-      assignedTo: 20,
-      currentPrice: 55,
+      assignedTo: 19,
+      currentPrice: 53,
       expired: false
     },
     {
@@ -403,8 +403,20 @@ db.getCollection('auctions').insertMany(
       description: "Alto voto per l'esame di Mouse&Tastiera 1 per persone con alti standard",
       endDate: ISODate('2025-01-19T15:16:00.000Z'),
       startingPrice: 15,
-      assignedTo: 16,
-      currentPrice: 20,
+      assignedTo: 20,
+      currentPrice: 15,
+      expired: false
+    },
+    {
+      _id: ObjectId('6787c3706c4a61131561d5eb'),
+      id: 20,
+      id_user: 15,
+      title: 'Sala Atti',
+      description: "Aula calda ed accogliente, ideale per lezioni ed esami",
+      endDate: ISODate('2025-01-23T15:16:00.000Z'),
+      startingPrice: 1000,
+      assignedTo: 1,
+      currentPrice: 1000,
       expired: false
     }
   ]
@@ -415,164 +427,173 @@ db.createCollection('bids');
 db.getCollection('bids').insertMany(
   [
     {
-      _id: ObjectId('6787ce58a72fb825da1f20e4'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 1,
-      auction_id: 0,
-      id_user: 17,
-      bidAmount: 18,
-      timestamp: ISODate('2025-01-15T15:10:00.524Z')
-    },
-    {
-      _id: ObjectId('6787ce69a72fb825da1f20e5'),
-      id: 2,
-      auction_id: 1,
+      auction_id: 2,
       id_user: 18,
-      bidAmount: 25,
-      timestamp: ISODate('2025-01-15T15:20:10.524Z')
+      bidAmount: 30,
+      timestamp: ISODate('2025-01-13T15:50:30.524Z')
     },
     {
-      _id: ObjectId('6787ce7aa72fb825da1f20e6'),
-      id: 3,
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 2,
       auction_id: 2,
       id_user: 16,
       bidAmount: 52,
-      timestamp: ISODate('2025-01-15T15:30:25.524Z')
+      timestamp: ISODate('2025-01-15T15:50:30.524Z')
     },
     {
-      _id: ObjectId('6787ce8ba72fb825da1f20e7'),
-      id: 4,
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 3,
       auction_id: 3,
       id_user: 19,
       bidAmount: 12,
-      timestamp: ISODate('2025-01-15T15:35:45.524Z')
+      timestamp: ISODate('2025-01-21T14:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ce9ca72fb825da1f20e8'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 4,
+      auction_id: 4,
+      id_user: 19,
+      bidAmount: 22,
+      timestamp: ISODate('2025-01-20T16:30:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 5,
       auction_id: 4,
-      id_user: 20,
-      bidAmount: 11,
-      timestamp: ISODate('2025-01-15T15:40:00.524Z')
+      id_user: 17,
+      bidAmount: 20,
+      timestamp: ISODate('2025-01-19T16:30:00.000Z')
     },
     {
       _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 6,
-      auction_id: 5,
+      auction_id: 6,
       id_user: 18,
-      bidAmount: 33,
-      timestamp: ISODate('2025-01-15T15:50:30.524Z')
+      bidAmount: 12,
+      timestamp: ISODate('2025-01-15T12:00:00.000Z')
     },
     {
-      _id: ObjectId('6787cebed72fb825da1f20ea'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 7,
       auction_id: 6,
-      id_user: 17,
-      bidAmount: 35,
-      timestamp: ISODate('2025-01-15T15:55:10.524Z')
+      id_user: 16,
+      bidAmount: 13,
+      timestamp: ISODate('2025-01-17T12:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceced72fb825da1f20eb'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 8,
       auction_id: 7,
-      id_user: 20,
-      bidAmount: 45,
-      timestamp: ISODate('2025-01-15T16:00:25.524Z')
+      id_user: 18,
+      bidAmount: 23,
+      timestamp: ISODate('2025-01-16T18:15:00.000Z')
     },
     {
-      _id: ObjectId('6787ceded72fb825da1f20ec'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 9,
+      auction_id: 18,
+      id_user: 16,
+      bidAmount: 52,
+      timestamp: ISODate('2025-01-17T22:00:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 10,
+      auction_id: 19,
+      id_user: 20,
+      bidAmount: 15,
+      timestamp: ISODate('2025-01-17T15:16:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 11,
       auction_id: 8,
       id_user: 16,
-      bidAmount: 55,
-      timestamp: ISODate('2025-01-15T16:05:40.524Z')
+      bidAmount: 2,
+      timestamp: ISODate('2025-01-18T19:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceeed72fb825da1f20ed'),
-      id: 10,
-      auction_id: 9,
-      id_user: 18,
-      bidAmount: 63,
-      timestamp: ISODate('2025-01-15T16:10:50.524Z')
-    },
-    {
-      _id: ObjectId('6787cf0fd72fb825da1f20ee'),
-      id: 11,
-      auction_id: 10,
-      id_user: 19,
-      bidAmount: 13,
-      timestamp: ISODate('2025-01-15T16:20:05.524Z')
-    },
-    {
-      _id: ObjectId('6787cf1ed72fb825da1f20ef'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 12,
-      auction_id: 11,
-      id_user: 20,
-      bidAmount: 36,
-      timestamp: ISODate('2025-01-15T16:25:30.524Z')
-    },
-    {
-      _id: ObjectId('6787cf2fd72fb825da1f20f0'),
-      id: 13,
-      auction_id: 12,
+      auction_id: 9,
       id_user: 17,
-      bidAmount: 23,
-      timestamp: ISODate('2025-01-15T16:30:15.524Z')
+      bidAmount: 22,
+      timestamp: ISODate('2025-01-22T20:00:00.000Z')
     },
     {
-      _id: ObjectId('6787cf40d72fb825da1f20f1'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 13,
+      auction_id: 11,
+      id_user: 16,
+      bidAmount: 30,
+      timestamp: ISODate('2025-01-20T14:45:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 14,
+      auction_id: 12,
+      id_user: 20,
+      bidAmount: 12,
+      timestamp: ISODate('22025-01-17T15:20:00.000Z')
+    },    
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 15,
       auction_id: 13,
       id_user: 16,
-      bidAmount: 19,
-      timestamp: ISODate('2025-01-15T16:35:50.524Z')
+      bidAmount: 14,
+      timestamp: ISODate('2025-01-20T17:00:00.000Z')
     },
     {
-      _id: ObjectId('6787cf51d72fb825da1f20f2'),
-      id: 15,
-      auction_id: 14,
-      id_user: 19,
-      bidAmount: 24,
-      timestamp: ISODate('2025-01-15T16:40:00.524Z')
-    },
-    {
-      _id: ObjectId('6787cf62d72fb825da1f20f3'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 16,
-      auction_id: 15,
+      auction_id: 13,
       id_user: 18,
-      bidAmount: 46,
-      timestamp: ISODate('2025-01-15T16:45:10.524Z')
-    },
+      bidAmount: 15,
+      timestamp: ISODate('2025-01-22T17:00:00.000Z')
+    },    
     {
-      _id: ObjectId('6787cf73d72fb825da1f20f4'),
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 17,
-      auction_id: 16,
-      id_user: 20,
-      bidAmount: 53,
-      timestamp: ISODate('2025-01-15T16:50:25.524Z')
-    },
-    {
-      _id: ObjectId('6787cf84d72fb825da1f20f5'),
-      id: 18,
-      auction_id: 17,
-      id_user: 19,
-      bidAmount: 50,
-      timestamp: ISODate('2025-01-15T16:55:40.524Z')
-    },
-    {
-      _id: ObjectId('6787cf95d72fb825da1f20f6'),
-      id: 19,
-      auction_id: 18,
-      id_user: 20,
-      bidAmount: 55,
-      timestamp: ISODate('2025-01-15T17:00:10.524Z')
-    }, 
-    {
-      _id: ObjectId('6787ce47a72fb825da1f20e3'),
-      id: 20,
-      auction_id: 0,
+      auction_id: 14,
       id_user: 16,
-      bidAmount: 17,
-      timestamp: ISODate('2025-01-15T15:03:35.524Z')
-    }
+      bidAmount: 52,
+      timestamp: ISODate('2025-01-20T18:30:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 18,
+      auction_id: 16,
+      id_user: 18,
+      bidAmount: 30,
+      timestamp: ISODate('2025-01-12T20:10:00.000Z')
+    },   
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 19,
+      auction_id: 17,
+      id_user: 17,
+      bidAmount: 30,
+      timestamp: ISODate('2025-01-15T21:00:00.000Z')
+    },
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 20,
+      auction_id: 18,
+      id_user: 19,
+      bidAmount: 53,
+      timestamp: ISODate('2025-01-18T22:00:00.000Z')
+    },    
+    {
+      _id: ObjectId('6787ceadc72fb825da1f20e9'),
+      id: 21,
+      auction_id: 20,
+      id_user: 1,
+      bidAmount: 1000,
+      timestamp: ISODate('2025-01-18T22:00:00.000Z')
+    },    
+
   ]
 );

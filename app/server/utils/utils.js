@@ -1,9 +1,9 @@
 import { connectToDatabase } from "../db/db.js";
 
 export async function updateExpiredAuctions() {
+    const timestamp = new Date(); 
     try {
         const mongo = await connectToDatabase();
-        const timestamp = new Date(); 
 
         const auctions = await mongo.collection("auctions").find().toArray();
 

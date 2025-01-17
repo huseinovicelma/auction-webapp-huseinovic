@@ -133,11 +133,12 @@ const app = createApp({
       async getData() {
         const url = "http://localhost:3000/api/auctions";
         try {
-          const response = await fetch(url);
+          const response = await fetch(url, { cache: 'no-store' });
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
           this.auctionsNotFiltered = await response.json();
+          this.auction = [];
           this.auctions = this.auctionsNotFiltered;
         } catch (error) {
           console.error(error.message);

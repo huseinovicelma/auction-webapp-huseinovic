@@ -55,8 +55,6 @@ router.post("/signin", async (req, res) => {
                 id: user.id,
                 username: user.username,
             };
-            req.session.createdAt = Date.now();
-            res.cookie("connect.sid", req.sessionID, { httpOnly: true});
             res.json({ msg: "Autenticazione avvenuta con successo",
                 username: user.username}
             );

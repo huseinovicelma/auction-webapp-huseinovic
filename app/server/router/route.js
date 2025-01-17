@@ -5,29 +5,18 @@ const db = require("../db/db.js");
 const { updateExpiredAuctions, checkDate, formattedDate } = require('../utils/utils.js');
 
 const verifyUser = (req, res, next) => {
-    try {
-      if (!req.session || !req.session.user) {
+    try {  
+      if (req.session && req.session.user) {
+        next();
+      } else {
         return res.status(401).json({ msg: "Non sei autenticato." });
       }
-      const now = Date.now();
-      const sessionCreatedAt = req.session.createdAt;
-      const sessionTimeout = req.session.cookie.maxAge;
-  
-      if (now - sessionCreatedAt > sessionTimeout) {
-        req.session.destroy(); 
-        return res.status(401).json({ msg: "Sessione scaduta. Effettua nuovamente il login." });
-      }
-  
-      const sessionCookie = req.cookies["connect.sid"];
-      if (!sessionCookie) {
-        return res.status(401).json({ msg: "Cookie di sessione mancante o non valido." });
-      }
-      return next();
+
     } catch (error) {
-      console.error("Errore durante la verifica dell'utente:", error);
       res.status(500).json({ msg: "Errore interno del server." });
     }
 };
+
   
 router.get("/users", async (req, res) => {
     try {
@@ -113,10 +102,11 @@ router.get("/auctions", async (req, res) => {
             query.assignedTo = parseInt(assignedTo);  
         }
 
-        const auctions = await mongo.collection("auctions").find(query).toArray();  
+        const auctions = await mongo.collection("auctions").find(query).sort({ expired: 1, endDate: 1 }).toArray();  
         for (let auction of auctions) {
             auction.endDate = formattedDate(auction.endDate);
         };
+        res.setHeader('Cache-Control', 'no-store');
 
         res.json(auctions); 
     } catch (error) {
@@ -128,6 +118,9 @@ router.get("/auctions", async (req, res) => {
 router.post("/auctions", verifyUser, async (req, res) => {
     try {
         const { title, description, endDate, startingPrice } = req.body;
+        if (startingPrice < 0){
+            res.status(400).json({ msg: "Non è possibile inserire un valore negativo" });
+        }
         if (checkDate(endDate)) {
             res.status(400).json({ msg: "Non è possibile inserire una data precedente a quella attuale!" });
         } else {
@@ -166,7 +159,7 @@ router.get("/auctions/:id", async (req, res) => {
       const auction = await mongo.collection("auctions").findOne({ id });
   
       if (!auction) {
-        return res.status(404).json({ message: "Asta non trovata." });
+        return res.status(404).json({ msg: "Asta non trovata." });
       }
   
       auction.endDate = formattedDate(auction.endDate);
@@ -232,7 +225,7 @@ router.get("/auctions/:id/bids", async (req, res) => {
       const bids = await mongo.collection("bids").find({ auction_id }).toArray();
   
       if (bids.length === 0) {
-        return res.status(404).json({ message: "Nessuna offerta trovata per questa asta." });
+        return res.status(404).json({ msg: "Nessuna offerta trovata per questa asta." });
       }
       for (let bid of bids) {
         bid.timestamp = formattedDate(bid.timestamp);
@@ -241,13 +234,17 @@ router.get("/auctions/:id/bids", async (req, res) => {
       res.json(bids);
     } catch (error) {
       console.error("Errore nella richiesta:", error);
-      res.status(500).json({ message: "Si è verificato un errore interno." });
+      res.status(500).json({ msg: "Si è verificato un errore interno." });
     }
   });
   
 router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
+    await updateExpiredAuctions();
     try {
         const { bidAmount } = req.body;
+        if (bidAmount < 0){
+            return res.status(404).json({ msg: "L'offerta non può essere un numero negativo" });
+        }
         const mongo = await db.connectToDatabase();
         const lastBid = await mongo
             .collection("bids")
@@ -265,19 +262,27 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
             timestamp
           };
         
-        await updateExpiredAuctions();
         const auction = await mongo
               .collection("auctions")
               .findOne({ id: auction_id });
 
+
         if(!auction.expired) {
-            if (auction.currentPrice < bidAmount) {
+            if (auction.currentPrice != 0){
+                if (auction.currentPrice === auction.startingPrice && auction.userId === auction.assignedTo){
+                    await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {currentPrice: bidAmount}});
+                    await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {assignedTo: id_user}});
+                    await mongo.collection("bids").insertOne(newBid);
+                    res.json({msg:"Offerta inserita con successo"});
+                }
+                if (auction.currentPrice > bidAmount || auction.currentPrice === bidAmount){
+                    return res.status(404).json({ msg: "L'offerta deve essere maggiore di quella corrente" });
+                }
                 await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {currentPrice: bidAmount}});
                 await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {assignedTo: id_user}});
                 await mongo.collection("bids").insertOne(newBid);
                 res.json({msg:"Offerta inserita con successo"});
             } else {
-                res.status(400).json({ msg: 'Non è possibile fare un\'offerta inferiore a quella corrente '}); 
             }
         } else { 
             await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {expired: true}})
