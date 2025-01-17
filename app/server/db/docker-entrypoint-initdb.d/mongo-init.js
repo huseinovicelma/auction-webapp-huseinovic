@@ -13,7 +13,6 @@ db.createCollection('users');
 db.getCollection('users').insertMany(
   [
     {
-      _id: ObjectId('6787c17d6c4a61131561d5e4'),
       id: 1,
       username: 'Prof.Informatica',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -21,7 +20,6 @@ db.getCollection('users').insertMany(
       surname: 'Disney'
     },
     {
-      _id: ObjectId('6787c1c06c4a61131561d5e5'),
       id: 2,
       username: 'Prof.Chimica',
       password: '$2a$10$0TcOkYnBm9yPawe6e4B2uehayP7wAF0htw6KzeMFBD2xKI8Z.KJKa',
@@ -29,7 +27,6 @@ db.getCollection('users').insertMany(
       surname: 'White'
     },
     {
-      _id: ObjectId('6787c2006c4a61131561d5e6'),
       id: 3,
       username: 'Prof.Matematica',
       password: '$2a$10$Of/mDMjhcy1xUiYz9bTSteR6D1KbYf83bTjTYoUXGSP9hTaZcJJZu',
@@ -37,7 +34,6 @@ db.getCollection('users').insertMany(
       surname: 'Algebra'
     },
     {
-      _id: ObjectId('6787c26b6c4a61131561d5e7'),
       id: 4,
       username: 'Prof.Letteratura',
       password: '$2a$10$933mDsP3lKd99IAL/1s1buuKmGck7zAzEAHAoYV3dlJwBF7XZcmbe',
@@ -45,7 +41,6 @@ db.getCollection('users').insertMany(
       surname: 'Alighieri'
     },
     {
-      _id: ObjectId('6787c29a6c4a61131561d5e8'),
       id: 5,
       username: 'Prof.Geologia',
       password: '$2a$10$eGt/9bXfkLwsfmHNeD1.UOPJtZaygJO8THi.a9kPfHF7qUagCXQwC',
@@ -53,7 +48,6 @@ db.getCollection('users').insertMany(
       surname: 'Fossile'
     },
     {
-      _id: ObjectId('6787c2d16c4a61131561d5e9'),
       id: 6,
       username: 'Prof.Medicina',
       password: '$2a$10$cITg4D6uwmFFalNz8daTgOtyhNvC96tqFrt2I.cZYuiy96xIqMF5O',
@@ -61,7 +55,6 @@ db.getCollection('users').insertMany(
       surname: 'House'
     },
     {
-      _id: ObjectId('6787c2f26c4a61131561d5ea'),
       id: 7,
       username: 'Prof.Architettura',
       password: '$2a$10$XyBnCwMYqhwLu/CQr.N7ZOX7Okw4NZzVAkU2hPbzHv9p5BB8C6CMq',
@@ -69,7 +62,6 @@ db.getCollection('users').insertMany(
       surname: 'Mosby'
     },
     {
-      _id: ObjectId('6787c3006c4a61131561d5eb'),
       id: 8,
       username: 'Prof.Fisica',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -77,7 +69,6 @@ db.getCollection('users').insertMany(
       surname: 'Einstein'
     },
     {
-      _id: ObjectId('6787c31a6c4a61131561d5ec'),
       id: 9,
       username: 'Prof.Psicologia',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -85,7 +76,6 @@ db.getCollection('users').insertMany(
       surname: 'Freud'
     },
     {
-      _id: ObjectId('6787c3336c4a61131561d5ed'),
       id: 10,
       username: 'Prof.Economia',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -93,7 +83,6 @@ db.getCollection('users').insertMany(
       surname: 'Maynard Keynes'
     },
     {
-      _id: ObjectId('6787c34c6c4a61131561d5ee'),
       id: 11,
       username: 'Prof.Storia',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -101,7 +90,6 @@ db.getCollection('users').insertMany(
       surname: 'Bonaparte'
     },
     {
-      _id: ObjectId('6787c35d6c4a61131561d5ef'),
       id: 12,
       username: 'Prof.LinguaInglese',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -109,7 +97,6 @@ db.getCollection('users').insertMany(
       surname: 'Shakespeare'
     },
     {
-      _id: ObjectId('6787c36e6c4a61131561d5f0'),
       id: 13,
       username: 'Prof.Filosofia',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -117,7 +104,6 @@ db.getCollection('users').insertMany(
       surname: 'Philosophus'
     },
     {
-      _id: ObjectId('6787c37f6c4a61131561d5f1'),
       id: 14,
       username: 'Prof.Musica',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -125,7 +111,6 @@ db.getCollection('users').insertMany(
       surname: 'Beethoven'
     },
     {
-      _id: ObjectId('6787c3806c4a61131561d610'),
       id: 15,
       username: 'SegreteriaDidattica',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -133,7 +118,6 @@ db.getCollection('users').insertMany(
       surname: 'Didattica'
     },
     {
-      _id: ObjectId('6787c3916c4a61131561d611'),
       id: 16,
       username: 'studente1',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -141,7 +125,6 @@ db.getCollection('users').insertMany(
       surname: 'Spaghetti'
     },
     {
-      _id: ObjectId('6787c3a16c4a61131561d612'),
       id: 17,
       username: 'studente2',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -149,7 +132,6 @@ db.getCollection('users').insertMany(
       surname: 'Moonbeam'
     },
     {
-      _id: ObjectId('6787c3b16c4a61131561d613'),
       id: 18,
       username: 'studente3',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -157,7 +139,6 @@ db.getCollection('users').insertMany(
       surname: 'Stardust'
     },
     {
-      _id: ObjectId('6787c3c16c4a61131561d614'),
       id: 19,
       username: 'studente4',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -165,7 +146,6 @@ db.getCollection('users').insertMany(
       surname: 'Doodle'
     },
     {
-      _id: ObjectId('6787c3d16c4a61131561d615'),
       id: 20,
       username: 'studente5',
       password: '$2a$10$fJJMBMP2LF2ICaL0OQjaNefbB5ftCUTgTYpHPgN6.FI51IRSTSrfK',
@@ -180,7 +160,6 @@ db.createCollection('auctions');
 db.getCollection('auctions').insertMany(
   [
     {
-      _id: ObjectId('6787c3ff6c4a61131561d5ec'),
       id: 1,
       id_user: 2,
       title: 'Voto: 30',
@@ -192,7 +171,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4516c4a61131561d5ed'),
       id: 2,
       id_user: 4,
       title: 'Voto: 18',
@@ -204,7 +182,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4a06c4a61131561d5f0'),
       id: 3,
       id_user: 1,
       title: 'Voto: 27',
@@ -216,7 +193,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4b16c4a61131561d5f1'),
       id: 4,
       id_user: 2,
       title: 'Voto: 28',
@@ -228,19 +204,17 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4c16c4a61131561d5f2'),
       id: 5,
       id_user: 3,
       title: 'Voto: 29',
       description: 'Esame di Geometria non Euclidea, ideale per chi ama pensare fuori dagli schemi',
       endDate: ISODate('2025-01-23T17:00:00.000Z'),
       startingPrice: 30,
-      assignedTo: 5,
+      assignedTo: 3,
       currentPrice: 30,
       expired: false
     },
     {
-      _id: ObjectId('6787c4d26c4a61131561d5f3'),
       id: 6,
       id_user: 4,
       title: 'Voto: 24',
@@ -252,7 +226,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4e36c4a61131561d5f4'),
       id: 7,
       id_user: 5,
       title: 'Voto: 30',
@@ -264,7 +237,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c4f46c4a61131561d5f5'),
       id: 8,
       id_user: 6,
       title: 'Voto: 28L',
@@ -276,7 +248,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c5056c4a61131561d5f6'),
       id: 9,
       id_user: 7,
       title: 'Voto: 30',
@@ -288,7 +259,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c5166c4a61131561d5f7'),
       id: 10,
       id_user: 1,
       title: 'Voto: 26',
@@ -300,7 +270,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c5276c4a61131561d5f8'),
       id: 11,
       id_user: 2,
       title: 'Voto: 29L',
@@ -312,7 +281,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c5386c4a61131561d5f9'),
       id: 12,
       id_user: 3,
       title: 'Voto: 30',
@@ -324,7 +292,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c5496c4a61131561d5fa'),
       id: 13,
       id_user: 4,
       title: 'Voto: 27',
@@ -336,7 +303,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c55a6c4a61131561d5fb'),
       id: 14,
       id_user: 5,
       title: 'Voto: 24',
@@ -348,7 +314,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c56b6c4a61131561d5fc'),
       id: 15,
       id_user: 6,
       title: 'Voto: 30L',
@@ -360,7 +325,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c57c6c4a61131561d5fd'),
       id: 16,
       id_user: 7,
       title: 'Voto: 28',
@@ -372,7 +336,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c58d6c4a61131561d5fe'),
       id: 17,
       id_user: 8,
       title: 'Voto: 30',
@@ -384,7 +347,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c59e6c4a61131561d5ff'),
       id: 18,
       id_user: 9,
       title: 'Voto: 27L',
@@ -396,7 +358,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c3706c4a61131561d5eb'),
       id: 19,
       id_user: 1,
       title: 'Voto: 30L',
@@ -408,7 +369,6 @@ db.getCollection('auctions').insertMany(
       expired: false
     },
     {
-      _id: ObjectId('6787c3706c4a61131561d5eb'),
       id: 20,
       id_user: 15,
       title: 'Sala Atti',
@@ -427,7 +387,6 @@ db.createCollection('bids');
 db.getCollection('bids').insertMany(
   [
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 1,
       auction_id: 2,
       id_user: 18,
@@ -435,7 +394,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-13T15:50:30.524Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 2,
       auction_id: 2,
       id_user: 16,
@@ -443,7 +401,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-15T15:50:30.524Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 3,
       auction_id: 3,
       id_user: 19,
@@ -451,7 +408,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-21T14:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 4,
       auction_id: 4,
       id_user: 19,
@@ -459,7 +415,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-20T16:30:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 5,
       auction_id: 4,
       id_user: 17,
@@ -467,7 +422,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-19T16:30:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 6,
       auction_id: 6,
       id_user: 18,
@@ -475,7 +429,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-15T12:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 7,
       auction_id: 6,
       id_user: 16,
@@ -483,7 +436,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-17T12:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 8,
       auction_id: 7,
       id_user: 18,
@@ -491,7 +443,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-16T18:15:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 9,
       auction_id: 18,
       id_user: 16,
@@ -499,7 +450,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-17T22:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 10,
       auction_id: 19,
       id_user: 20,
@@ -507,7 +457,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-17T15:16:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 11,
       auction_id: 8,
       id_user: 16,
@@ -515,7 +464,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-18T19:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 12,
       auction_id: 9,
       id_user: 17,
@@ -523,7 +471,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-22T20:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 13,
       auction_id: 11,
       id_user: 16,
@@ -531,15 +478,13 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-20T14:45:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 14,
       auction_id: 12,
       id_user: 20,
       bidAmount: 12,
-      timestamp: ISODate('22025-01-17T15:20:00.000Z')
+      timestamp: ISODate('2025-01-17T15:20:00.000Z')
     },    
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 15,
       auction_id: 13,
       id_user: 16,
@@ -547,7 +492,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-20T17:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 16,
       auction_id: 13,
       id_user: 18,
@@ -555,7 +499,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-22T17:00:00.000Z')
     },    
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 17,
       auction_id: 14,
       id_user: 16,
@@ -563,7 +506,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-20T18:30:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 18,
       auction_id: 16,
       id_user: 18,
@@ -571,7 +513,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-12T20:10:00.000Z')
     },   
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 19,
       auction_id: 17,
       id_user: 17,
@@ -579,7 +520,6 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-15T21:00:00.000Z')
     },
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 20,
       auction_id: 18,
       id_user: 19,
@@ -587,13 +527,12 @@ db.getCollection('bids').insertMany(
       timestamp: ISODate('2025-01-18T22:00:00.000Z')
     },    
     {
-      _id: ObjectId('6787ceadc72fb825da1f20e9'),
       id: 21,
       auction_id: 20,
       id_user: 1,
       bidAmount: 1000,
       timestamp: ISODate('2025-01-18T22:00:00.000Z')
-    },    
+    } 
 
   ]
 );
