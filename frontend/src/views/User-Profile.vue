@@ -145,14 +145,11 @@
           const wonresponse = await fetch(wonUrl);
           const wonAuctions = await wonresponse.json();
           this.wonAuctions = [];
-
-          const timestamp = new Date();
-          for (const wonAuction of wonAuctions){
-            const endDate = new Date(wonAuction.endDate);
-            if (timestamp > endDate) {
-              this.wonAuctions.push(wonAuction);
-            }
-          }
+          for (let auction of wonAuctions) {
+                  if (auction.expired){
+                    this.wonAuctions.push(auction);
+                  }
+                }
         } catch (error) {
           console.error('Errore durante il caricamento delle aste:', error);
         }

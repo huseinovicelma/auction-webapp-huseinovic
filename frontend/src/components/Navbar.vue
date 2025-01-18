@@ -3,7 +3,7 @@
     <div class="container d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between">
       <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
         <!-- Navbar Brand -->
-        <router-link class="navbar-brand me-lg-4" to="/">Auctions</router-link>
+        <router-link class="navbar-brand me-lg-4" to="/">LaureAsta</router-link>
         <ul class="navbar-nav d-flex flex-column flex-lg-row mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link class="nav-link" to="/users">Lista utenti</router-link>

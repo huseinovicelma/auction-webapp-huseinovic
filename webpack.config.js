@@ -2,10 +2,14 @@ const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
 
 module.exports = {
+  mode: 'production',
   entry: './frontend/src/main.js', // Punto di ingresso della tua applicazione
   output: {
     path: path.resolve(__dirname, 'frontend'), // Directory di output
     filename: 'bundle.js', // Nome del file bundle
+  },
+  optimization: {
+    minimize: true,  // Minimizza il codice per la produzione
   },
   module: {
     rules: [
