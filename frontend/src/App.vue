@@ -59,10 +59,26 @@
           this.$router.push({ name: page });
         }
       },
-      logout() {
-        this.isLoggedIn = false;
-        this.user = { username: "", name: "", surname: "" };
-        this.changePage("login");
+      async logout() {
+        try {
+          const response = await fetch('http://localhost:3000/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include', 
+          });
+      
+          if (!response.ok) {
+            throw new Error('Errore durante il logout');
+          }
+      
+          this.isLoggedIn = false;
+          this.username = '';
+          this.userId = 0;
+          this.user = [];
+          this.successMessage = '';
+          this.errorMessage = '';
+        } catch (error) {
+          console.error('Errore durante il logout:', error.message);
+        }
       },
       handleUserLogin(userData) {
         this.isLoggedIn = userData.isLoggedIn;
