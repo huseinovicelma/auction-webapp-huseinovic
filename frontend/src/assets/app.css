@@ -39,6 +39,7 @@ body {
 .navbar-brand {
   font-size: 1.8rem;
   font-weight: 600;
+  text-transform: uppercase;
   letter-spacing: 2px;
 }
 
@@ -213,4 +214,19 @@ body {
 .links {
   text-decoration: underline; 
   color: #007bff;
+}
+
+
+
+/* Rimuovi stili indesiderati dai router-link */
+router-link {
+  text-decoration: none !important; /* Rimuove la sottolineatura */
+  display: inline; /* Mantiene il comportamento inline per non interferire con il layout */
+  padding: 0; /* Rimuove il padding che potrebbe alterare la formattazione */
+  margin: 0; /* Rimuove il margine che potrebbe influire sulla posizione */
+}
+
+/* Se vuoi isolare ulteriormente, usa anche un selettore per il container della tabella */
+table router-link {
+  display: inline; /* Imposta il comportamento inline dentro la tabella */
 }
