@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const { xss } = require('express-xss-sanitizer');
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const db = require("../db/db.js");
@@ -19,7 +20,7 @@ const hashPassword = async (req, res, next) => {
     }
 };
 
-router.post("/signup", hashPassword, async (req, res) => {
+router.post("/signup", xss(), hashPassword, async (req, res) => {
     const { username, password, name, surname } = req.body;
     try {
         const mongo = await db.connectToDatabase();
@@ -41,7 +42,7 @@ router.post("/signup", hashPassword, async (req, res) => {
     }
 });
 
-router.post("/signin", async (req, res) => {
+router.post("/signin", xss(), async (req, res) => {
     try {
         const { username, password } = req.body;
         const mongo = await db.connectToDatabase();

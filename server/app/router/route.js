@@ -1,5 +1,5 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
+const { xss } = require('express-xss-sanitizer');
 const router = express.Router();
 const db = require("../db/db.js");
 const { updateExpiredAuctions, checkDate, formattedDate } = require('../utils/utils.js');
@@ -18,7 +18,7 @@ const verifyUser = (req, res, next) => {
 };
 
   
-router.get("/users", async (req, res) => {
+router.get("/users", xss(), async (req, res) => {
     try {
         const { username, name, surname, id } = req.query; 
         const mongo = await db.connectToDatabase();
@@ -68,7 +68,7 @@ router.get("/whoami", verifyUser, async (req, res) => {
 });
   
 
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", xss(), async (req, res) => {
     try {
         let id = parseInt(req.params.id);
         const mongo = await db.connectToDatabase();
@@ -85,7 +85,7 @@ router.get("/users/:id", async (req, res) => {
     }
 });
   
-router.get("/auctions", async (req, res) => {
+router.get("/auctions", xss(), async (req, res) => {
     try {
         const { userId, category, assignedTo} = req.query;  
         await updateExpiredAuctions();
@@ -115,7 +115,7 @@ router.get("/auctions", async (req, res) => {
     }
 });
 
-router.post("/auctions", verifyUser, async (req, res) => {
+router.post("/auctions", xss(), verifyUser, async (req, res) => {
     try {
         const { title, description, endDate, startingPrice } = req.body;
         if (startingPrice < 0){
@@ -150,7 +150,7 @@ router.post("/auctions", verifyUser, async (req, res) => {
     }
 });
 
-router.get("/auctions/:id", async (req, res) => {
+router.get("/auctions/:id", xss(), async (req, res) => {
     try {
       let id = parseInt(req.params.id);
       await updateExpiredAuctions();
@@ -170,7 +170,7 @@ router.get("/auctions/:id", async (req, res) => {
     }
 });
   
-router.put("/auctions/:id", verifyUser, async (req, res) => {
+router.put("/auctions/:id", xss(), verifyUser, async (req, res) => {
     try { 
         const id = parseInt(req.params.id);
         const userId = req.session.user.id; 
@@ -192,7 +192,7 @@ router.put("/auctions/:id", verifyUser, async (req, res) => {
         res.status(500).json({ error: 'Errore durante l\'aggiornamento dell\'asta' }); }
 });
 
-router.delete("/auctions/:id", verifyUser, async (req, res) => {
+router.delete("/auctions/:id", xss(), verifyUser, async (req, res) => {
     let id = parseInt(req.params.id);
     let id_user = req.session.user.id;
     const mongo = await db.connectToDatabase();
@@ -217,7 +217,7 @@ router.delete("/auctions/:id", verifyUser, async (req, res) => {
     }
 });
 
-router.get("/auctions/:id/bids", async (req, res) => {
+router.get("/auctions/:id/bids", xss(), async (req, res) => {
     try {
       let auction_id = parseInt(req.params.id);
   
@@ -238,7 +238,7 @@ router.get("/auctions/:id/bids", async (req, res) => {
     }
   });
   
-router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
+router.post("/auctions/:id/bids", xss(), verifyUser, async (req, res) => {
     await updateExpiredAuctions();
     try {
         const { bidAmount } = req.body;
@@ -294,7 +294,7 @@ router.post("/auctions/:id/bids", verifyUser, async (req, res) => {
     }
 });
 
-router.get("/auctions/:id/bids", async (req, res) => {
+router.get("/auctions/:id/bids", xss(), async (req, res) => {
     try {
       let auction_id = parseInt(req.params.id);
   
@@ -315,7 +315,7 @@ router.get("/auctions/:id/bids", async (req, res) => {
     }
 });
   
-router.get("/bids/:id", async (req, res) => {
+router.get("/bids/:id", xss(), async (req, res) => {
     try {
       const bid_id = parseInt(req.params.id);
       const mongo = await db.connectToDatabase();
