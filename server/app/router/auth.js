@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const { xss } = require('express-xss-sanitizer');
-const jwt = require("jsonwebtoken");
 const express = require("express");
 const db = require("../db/db.js");
 const router = express.Router();
