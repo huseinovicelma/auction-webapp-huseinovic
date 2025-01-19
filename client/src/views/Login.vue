@@ -90,7 +90,4 @@
   };
   </script>
   
-  <style scoped>
-  /* Custom styles for login */
-  </style>
   

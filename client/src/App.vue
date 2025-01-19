@@ -53,7 +53,7 @@
         if (data) {
           this.$router.push({
             name: page,
-            params: { id: data }, // Passa i parametri con la chiave esatta
+            params: { id: data }, 
           });
         } else {
           this.$router.push({ name: page });
@@ -77,7 +77,7 @@
           this.successMessage = '';
           this.errorMessage = '';
         } catch (error) {
-          console.error('Errore durante il logout:', error.message);
+          //console.error('Errore durante il logout:', error.message);
         }
       },
       handleUserLogin(userData) {
@@ -118,7 +118,7 @@
           this.userId = user.id;
           this.changePage('mainpage');
         } catch (error) {
-          console.log('Errore durante il check-login:', error.message);
+          const errore = error.msg;
           this.isLoggedIn = false;
           this.username = '';
           this.userId = 0;
@@ -134,8 +134,3 @@
     },
   };
   </script>
-  
-  <style>
-  /* Styles for App.vue */
-  </style>
-  

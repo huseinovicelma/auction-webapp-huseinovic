@@ -66,10 +66,10 @@
           const response = await fetch('http://localhost:3000/api/auctions', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Specifica il tipo di contenuto
+              'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-              title: this.newAuction.title, // Sostituisci con i tuoi dati
+              title: this.newAuction.title, 
               description: this.newAuction.description,
               endDate: this.newAuction.endDate,
               startingPrice: this.newAuction.startingPrice,
@@ -120,7 +120,4 @@
   };
   </script>
   
-  <style scoped>
-  /* Custom styles for login */
-  </style>
   

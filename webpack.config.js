@@ -3,9 +3,9 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './frontend/src/main.js', // Punto di ingresso della tua applicazione
+  entry: './client/src/main.js', // Punto di ingresso della tua applicazione
   output: {
-    path: path.resolve(__dirname, 'frontend'), // Directory di output
+    path: path.resolve(__dirname, 'client'), // Directory di output
     filename: 'bundle.js', // Nome del file bundle
   },
   optimization: {
@@ -36,5 +36,4 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
   ],
-  mode: 'development',
 };

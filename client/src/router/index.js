@@ -12,19 +12,18 @@ const routes = [
   { path: "/", name: "mainpage", component: MainPage },
   { path: "/login", name: "login", component: Login },
   { path: "/profile", name: "profile", component: UserProfile },
-  { path: "/auction/:id", name: "auctiondetail", component: AuctionDetail, props: true},
+  { path: "/auction/:id", name: "auctiondetail", component: AuctionDetail, props: route => ({ id: Number(route.params.id) })},
   { path: "/users", name: "userList", component: UserList },
   { path: "/newauction", name: "newAuction", component: NewAuction },
   { path: "/signin", name: "Signin", component: SignIn },
-  { path: "/user/:id", name: "userDetail", component: UserDetail, props: true},
+  { path: "/user/:id", name: "userDetail", component: UserDetail, props: route => ({ id: Number(route.params.id) }),
+},
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
-
-  
+ 
 
 export default router;

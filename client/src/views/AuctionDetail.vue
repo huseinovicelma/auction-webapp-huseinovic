@@ -6,7 +6,6 @@
             <div class="card-header bg-dark text-white text-center border-bottom">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 fw-bold fs-4">{{ auctionDetail.title }}</h5>
-                <!-- Badge Attiva/Scaduta posizionato a destra -->
                 <span v-if="auctionDetail.expired" class="badge bg-danger text-white fs-6 py-2 px-3">Scaduta</span>
                 <span v-else class="badge bg-success text-white fs-6 py-2 px-3">Attiva</span>
               </div>
@@ -23,14 +22,12 @@
                 <strong class="fs-6">Fornita da:</strong> <em>{{ auctionDetail.assignedTousername }}</em>
               </div>
       
-              <!-- Separazione tra la scadenza centrata e il footer -->
               <div v-if="!auctionDetail.expired" class="mt-4 text-center">
                 <p class="text-white fs-5 mb-0"><strong>Scadenza:</strong></p>
                 <p class="text-light fs-6 mb-0">{{ auctionDetail.endDate }}</p>
               </div>
             </div>
       
-            <!-- Footer in fondo -->
             <div class="card-footer">
               <small>ID Asta: <span class="auction-id">{{ auctionDetail.id }}</span></small>
             </div>
@@ -69,7 +66,6 @@
           </div>
         </div>
     
-        <!-- Se l'utente ha scelto "allBids" -->
         <div v-if="showbids === 'allBids'" class="row">
           <div v-if="bids.length">
             <div class="row">
@@ -95,8 +91,7 @@
             Non ci sono ancora state offerte per l'asta
           </div>
         </div>
-    
-        <!-- Se l'utente ha scelto "newBid" -->
+
         <div v-if="showbids === 'newBid'" class="row">
           <div class="col-12 mt-4">
             <div class="card bg-dark text-white shadow-sm w-100">
@@ -119,8 +114,7 @@
             </div>
           </div>
         </div>
-    
-        <!-- Se l'utente ha scelto "modifyauction" -->
+
         <div v-if="showbids === 'modifyauction'" class="row">
           <div class="col-12 mt-4">
             <div class="card bg-dark text-white shadow-sm w-100">
@@ -148,16 +142,16 @@
                     />
                   </div>
                   <button type="submit" class="btn btn-primary">Invia Modifica</button>
-                  <button type="button" class="btn btn-secondary" @click="$emit('changePage', 'mainpage')">Annulla</button>
+                  <button type="button" class="btn btn-secondary" @click="$router.push('/')">Annulla</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Se l'utente non è loggato -->
+
       <div v-if="!isLoggedIn && !auctionDetail.expired" class="alert alert-warning" role="alert">
-        <a @click="$emit('changePage', 'login')" class="links">Accedi</a> 
+        <a @click="$$router.push('/logim')" class="links">Accedi</a> 
         o <a @click="$emit('changePage', 'signin')" class="links">Registrati</a> per fare un'offerta!
       </div>
       <div v-if="!isLoggedIn && auctionDetail.expired" class="alert alert-warning" role="alert">
@@ -177,12 +171,12 @@
     data() {
       return{
         auctionDetail: [], 
-        showbids: 'allBids', // Gestisce la visualizzazione delle diverse sezioni (tutte le offerte, nuova offerta, modifica asta)
+        showbids: 'allBids', 
         bids: [],
         newBid: {
         bidAmount: 0,
         },
-        isOwner: false, // Determina se l'utente è il proprietario dell'asta
+        isOwner: false, 
         modifyAuction: {
         title: '',
         description: '',
@@ -192,6 +186,14 @@
     mounted() {
       this.loadAuctionDetail(this.$route.params.id);
     },
+    watch: {
+    "$route.params.id": {
+      handler(newId) {
+        this.loadAuctionDetail(newId);
+      },
+      immediate: true,
+    },
+  },
     methods: {
       async loadAuctionDetail(auction_id) {
         this.auction_id = auction_id;
@@ -218,7 +220,7 @@
           } 
 
         } catch (error) {
-          console.error(error.message);
+          //console.error(error.message);
         }
       },
       async loadAllBids() {
@@ -236,7 +238,7 @@
           }
           this.bids.reverse();
         } catch (error) {
-          console.error(error.message);
+          //console.error(error.message);
         }
       },
       async insertNewBid() {
@@ -244,10 +246,10 @@
           const response = await fetch(`http://localhost:3000/api/auctions/${this.auctionDetail.id}/bids`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Specifica il tipo di contenuto
+              'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-              bidAmount: this.newBid.bidAmount// Sostituisci con i tuoi dati
+              bidAmount: this.newBid.bidAmount
             })
           });
 
@@ -351,27 +353,24 @@
         const url = "http://localhost:3000/api/whoami";
         try {
           const response = await fetch(url, {
-                credentials: 'include', // Include i cookie con la richiesta
+                credentials: 'include', 
           });
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
           this.user = await response.json();
+          if (this.auctionDetail.id_user === this.user.id) {
+            this.isOwner = true;
+          }
+          else {
+            this.isOwner = false;
+          }
         } catch (error) {
-          console.error(error.message);
-        }
-        if (this.auctionDetail.id_user === this.user.id) {
-          this.isOwner = true;
-        }
-        else {
-          this.isOwner = false;
+          const errore = error.msg;
         }
       },
     },
   };
   </script>
   
-  <style scoped>
-  /* Custom styles for auction details */
-  </style>
   

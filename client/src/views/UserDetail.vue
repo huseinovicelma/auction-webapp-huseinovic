@@ -8,7 +8,6 @@
             </div>
             <div class="card-body">
               <div class="d-flex flex-column align-items-start">
-                <!-- Dettagli utente senza l'ID -->
                 <p><strong>Nome:</strong> {{ user.name }}</p>
                 <p><strong>Cognome:</strong> {{ user.surname }}</p>
               </div>
@@ -75,6 +74,14 @@
         mounted() {
           this.loadUser(this.$route.params.id);
         },
+        watch: {
+      "$route.params.id": {
+          handler(newId) {
+              this.loadUser(newId);
+            },
+            immediate: true,
+          },
+        },
         methods: {
             async loadUser(userid) {
                 const url = `http://localhost:3000/api/users/${userid}`;
@@ -86,7 +93,7 @@
                 this.user = await response.json();
                 await this.loadUserWonAuctions(this.user.id);
                 } catch (error) {
-                console.error(error.message);
+                //console.error(error.message);
                 }
             },
             async loadUserWonAuctions(userId) {
@@ -112,7 +119,4 @@
       };
       </script>
       
-      <style scoped>
-      /* Custom styles for user list */
-      </style>
       

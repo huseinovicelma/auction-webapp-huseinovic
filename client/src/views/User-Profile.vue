@@ -1,7 +1,6 @@
 <template>
 <div class="container mt-5">
       <div class="row mb-4 justify-content-center">
-        <!-- Profilo utente -->
         <div class="col-md-8">
           <div class="card bg-dark text-white shadow-lg border-0">
             <div class="card-header bg-dark text-white text-center">
@@ -9,7 +8,6 @@
             </div>
             <div class="card-body">
               <div class="d-flex flex-column align-items-start">
-                <!-- Dettagli utente senza l'ID -->
                 <p><strong>Nome:</strong> {{ user.name }}</p>
                 <p><strong>Cognome:</strong> {{ user.surname }}</p>
               </div>
@@ -41,14 +39,12 @@
         </div>
       </div>
 
-      <!-- Contenuto Aste -->
       <div v-if="showView === 'created' && createdAuctions.length" class="row">
         <div v-for="auction in createdAuctions" :key="auction.id" class="col-12 mb-4">
           <div class="card bg-dark text-white shadow-sm w-100" id="clickableCard" @click.stop="$emit('changePage', 'auctiondetail', auction.id)">
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <h5 class="card-title">{{ auction.title }}</h5>
-                <!-- Badge indicante se l'asta è attiva o scaduta -->
                 <span
                   v-if="auction.expired"
                   class="badge bg-danger ms-auto">Scaduta</span>
@@ -76,7 +72,6 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <h5 class="card-title">{{ auction.title }}</h5>
-                <!-- Badge indicante se l'asta è attiva o scaduta -->
                 <span
                   v-if="auction.expired"
                   class="badge bg-danger ms-auto">Scaduta</span>
@@ -125,7 +120,7 @@
         const url = "http://localhost:3000/api/whoami";
         try {
           const response = await fetch(url, {
-                credentials: 'include', // Include i cookie con la richiesta
+                credentials: 'include',
           });
 
           if (!response.ok) {
@@ -135,7 +130,7 @@
           await this.loadUserWonAuctions(this.user.id);
           await this.loadUserCreatedAuctions(this.user.id);
         } catch (error) {
-          console.error(error.message);
+          //console.error(error.message);
         }
       },
       async loadUserWonAuctions(userId) {
@@ -151,7 +146,7 @@
                   }
                 }
         } catch (error) {
-          console.error('Errore durante il caricamento delle aste:', error);
+          //console.error('Errore durante il caricamento delle aste:', error);
         }
       },
       async loadUserCreatedAuctions(userId) {
@@ -162,14 +157,9 @@
           const createdresponse = await fetch(createdUrl);
           this.createdAuctions = await createdresponse.json();
         } catch (error) {
-          console.error('Errore durante il caricamento delle aste:', error);
+          //console.error('Errore durante il caricamento delle aste:', error);
         }
       },
     },
   };
   </script>
-  
-  <style scoped>
-  /* Custom styles for profile */
-  </style>
-  

@@ -3,7 +3,7 @@ services:
   auction-backend-huseinovic:
     container_name: auction-backend-huseinovic
     build: ./  # Percorso della cartella backend
-    command: node backend/app.js  # Avvia l'applicazione con nodemon
+    command: node server/app.js  # Avvia l'applicazione con nodemon
     ports:
       - "3000:3000"  # Esponi la porta 5001 per il backend
     depends_on:
@@ -16,7 +16,7 @@ services:
     image: mongo:latest  # Usa l'immagine più recente di MongoDB
     volumes:
       - ./data:/data/db  # Mappa i dati di MongoDB per la persistenza
-      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./server/app/db/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"  # Porta standard di MongoDB
     environment:

@@ -9,7 +9,6 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <h5 class="card-title">{{ auction.title }}</h5>
-                <!-- Badge indicante se l'asta è attiva o scaduta -->
                 <span
                   v-if="auction.expired"
                   class="badge bg-danger ms-auto">Scaduta</span>
@@ -55,7 +54,7 @@
           this.auctionsNotFiltered = await response.json();
           this.auctions = this.auctionsNotFiltered;
         } catch (error) {
-          console.error(error.message);
+          //console.error(error.message);
         }
       },
       async filterAsta() {

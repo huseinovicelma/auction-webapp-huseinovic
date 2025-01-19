@@ -2,7 +2,6 @@
   <nav class="navbar navbar-light bg-body-tertiary">
     <div class="container d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between">
       <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
-        <!-- Navbar Brand -->
         <router-link class="navbar-brand me-lg-4" to="/">LaureAsta</router-link>
         <ul class="navbar-nav d-flex flex-column flex-lg-row mb-2 mb-lg-0">
           <li class="nav-item">
@@ -52,18 +51,15 @@ export default {
       this.menuVisible = false;
     },
     handleClickOutside(event) {
-      // Verifica se il clic è avvenuto fuori dal menu
       if (!this.$el.contains(event.target)) {
         this.closeMenu();
       }
     }
   },
   mounted() {
-    // Aggiunge il listener all'evento click sul documento
     document.addEventListener('click', this.handleClickOutside);
   },
   beforeDestroy() {
-    // Rimuove il listener all'evento click sul documento
     document.removeEventListener('click', this.handleClickOutside);
   }
 };

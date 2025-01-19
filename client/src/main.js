@@ -5,5 +5,8 @@ import router from "./router";
 
 const app = createApp(App);
 
+app.config.warnHandler = () => {};
+app.config.errorHandler = () => {};
+
 app.use(router);
 app.mount("#app");

@@ -82,7 +82,7 @@
           this.usersNotFiltered = await response.json();
           this.users = this.usersNotFiltered;
         } catch (error) {
-          console.error(error.message);
+          //console.error(error.message);
         }
       },
       async filterUsers() {
@@ -103,8 +103,4 @@
     },
   };
   </script>
-  
-  <style scoped>
-  /* Custom styles for user list */
-  </style>
   
