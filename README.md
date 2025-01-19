@@ -1,4 +1,3 @@
-Here's the updated version of the README for your web app:
 
 ---
 
@@ -15,12 +14,11 @@ A web app for auction management.
 
 ## Technologies
 
-- **Frontend**:
+- **Client**:
   - Vue.js: JavaScript framework for creating the user interface.
   - Webpack: Module bundler for compiling the frontend code.
-  - Bootstrap: CSS framework for quickly creating layouts and responsive designs.
   
-- **Backend**:
+- **Server**:
   - Node.js: Runtime environment for the server.
   - Express: Framework for handling API routes.
   - MongoDB: Database to store users, auctions, and bids.
@@ -55,5 +53,3 @@ Make sure you have Docker installed on your machine.
 - The passwords of the users are **hashed** before being stored in the database for security: for all initial users the password is set to `'password'` (for testing purposes).
 
 ---
-
-This update reflects the use of Webpack for compiling the Vue.js client. Let me know if you need any more changes!
