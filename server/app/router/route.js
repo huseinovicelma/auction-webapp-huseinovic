@@ -269,19 +269,20 @@ router.post("/auctions/:id/bids", xss(), verifyUser, async (req, res) => {
 
         if(!auction.expired) {
             if (auction.currentPrice != 0){
-                if (auction.currentPrice === auction.startingPrice && auction.userId === auction.assignedTo){
+                if (auction.currentPrice === auction.startingPrice && auction.id_user === auction.assignedTo
+                    && auction.currentPrice === bidAmount){
+                    await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {currentPrice: bidAmount}});
+                    await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {assignedTo: id_user}});
+                    await mongo.collection("bids").insertOne(newBid);
+                    res.json({msg:"Offerta inserita con successo"});
+                } else if (auction.currentPrice > bidAmount || auction.currentPrice === bidAmount){
+                    return res.status(404).json({ msg: "L'offerta deve essere maggiore di quella corrente" });
+                } else {
                     await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {currentPrice: bidAmount}});
                     await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {assignedTo: id_user}});
                     await mongo.collection("bids").insertOne(newBid);
                     res.json({msg:"Offerta inserita con successo"});
                 }
-                if (auction.currentPrice > bidAmount || auction.currentPrice === bidAmount){
-                    return res.status(404).json({ msg: "L'offerta deve essere maggiore di quella corrente" });
-                }
-                await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {currentPrice: bidAmount}});
-                await mongo.collection("auctions").updateOne({id: auction_id}, {$set: {assignedTo: id_user}});
-                await mongo.collection("bids").insertOne(newBid);
-                res.json({msg:"Offerta inserita con successo"});
             } else {
             }
         } else { 
