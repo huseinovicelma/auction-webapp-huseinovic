@@ -144,7 +144,7 @@ router.post("/auctions", xss(), verifyUser, async (req, res) => {
             };
             await mongo.collection("auctions").insertOne(newAuction);
             res.json({ msg: 'Asta creata con successo' });
-        }
+        };
         } catch (error) {
         res.status(500).json({ msg: "Internal error" });
     }
