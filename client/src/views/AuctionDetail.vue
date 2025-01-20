@@ -142,7 +142,7 @@
                     />
                   </div>
                   <button type="submit" class="btn btn-primary">Invia Modifica</button>
-                  <button type="button" class="btn btn-secondary" @click="$router.push('/')">Annulla</button>
+                  <button type="button" class="btn btn-secondary" @click="$emit('changePage', 'login')">Annulla</button>
                 </form>
               </div>
             </div>
@@ -151,12 +151,12 @@
       </div>
 
       <div v-if="!isLoggedIn && !auctionDetail.expired" class="alert alert-warning" role="alert">
-        <a @click="$$router.push('/logim')" class="links">Accedi</a> 
-        o <a @click="$emit('changePage', 'signin')" class="links">Registrati</a> per fare un'offerta!
+        <a @click="$emit('changePage', 'login')" class="links">Accedi</a> 
+        o <a @click="$emit('changePage', 'Signin')" class="links">Registrati</a> per fare un'offerta!
       </div>
       <div v-if="!isLoggedIn && auctionDetail.expired" class="alert alert-warning" role="alert">
         <a @click="$emit('changePage', 'login')" class="links">Accedi</a> 
-        o <a @click="$emit('changePage', 'signin')" class="links">Registrati</a> 
+        o <a @click="$emit('changePage', 'Signin')" class="links">Registrati</a> 
         per visualizzare lo storico delle offerte!
       </div>
     </div>
